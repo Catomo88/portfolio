@@ -10,9 +10,32 @@
   "overrides": {
     "뭐든지_Claude_Code": { "display_name": "뭐든지 앱", "tags": ["Android", "Kotlin", "AI"] },
     "AI English tutor": { "tags": ["Flutter", "AI"] },
+    "Soccer_toto": { "status": "live", "live": "https://soccer-toto.web.app" },
     "시간표_관리": { "status": "live", "live": "https://catomo88.github.io/time_table/" },
     "Play_Archive": { "status": "live", "live": "https://catomo88.github.io/Play_Archive/" },
     "원준이네 아쿠아스케이핑": { "status": "live", "live": "https://catomo88.github.io/Aquarium/" },
     "여행 계획": { "status": "live", "live": "https://catomo88.github.io/Trip_Info/" }
-  }
+  },
+  "manual": [
+    {
+      "name": "education",
+      "display_name": "아이 교육 자료실",
+      "tool": "Cowork",
+      "summary": "아이 학습을 돕는 교육 자료를 모아 보는 웹 자료실.",
+      "tags": ["Web", "HTML"],
+      "status": "live",
+      "repo": "https://github.com/Catomo88/education",
+      "live": "https://catomo88.github.io/education/"
+    },
+    {
+      "name": "tamagotchi",
+      "display_name": "다마고치 진화표",
+      "tool": "Cowork",
+      "summary": "다마고치 파라다이스의 캐릭터 진화 조건을 정리한 진화표 웹페이지.",
+      "tags": ["Web", "HTML"],
+      "status": "live",
+      "repo": "https://github.com/Catomo88/tamagotchi",
+      "live": "https://catomo88.github.io/tamagotchi/"
+    }
+  ]
 }

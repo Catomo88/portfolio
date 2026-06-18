@@ -26,11 +26,11 @@
       "tags": [
         "Web"
       ],
-      "status": "wip",
+      "status": "live",
       "last_commit": "2026-06-18",
       "links": {
         "repo": "https://github.com/Catomo88/soccer-toto",
-        "live": null
+        "live": "https://soccer-toto.web.app"
       },
       "fingerprint": 1781759762.200755,
       "summary_stale": false
@@ -175,6 +175,42 @@
       "links": {
         "repo": null,
         "live": "https://catomo88.github.io/Aquarium/"
+      },
+      "fingerprint": 0.0,
+      "summary_stale": false
+    },
+    {
+      "name": "education",
+      "display_name": "아이 교육 자료실",
+      "tool": "Cowork",
+      "summary": "아이 학습을 돕는 교육 자료를 모아 보는 웹 자료실.",
+      "tags": [
+        "Web",
+        "HTML"
+      ],
+      "status": "live",
+      "last_commit": null,
+      "links": {
+        "repo": "https://github.com/Catomo88/education",
+        "live": "https://catomo88.github.io/education/"
+      },
+      "fingerprint": 0.0,
+      "summary_stale": false
+    },
+    {
+      "name": "tamagotchi",
+      "display_name": "다마고치 진화표",
+      "tool": "Cowork",
+      "summary": "다마고치 파라다이스의 캐릭터 진화 조건을 정리한 진화표 웹페이지.",
+      "tags": [
+        "Web",
+        "HTML"
+      ],
+      "status": "live",
+      "last_commit": null,
+      "links": {
+        "repo": "https://github.com/Catomo88/tamagotchi",
+        "live": "https://catomo88.github.io/tamagotchi/"
       },
       "fingerprint": 0.0,
       "summary_stale": false

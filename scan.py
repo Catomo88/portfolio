@@ -133,12 +133,32 @@ def build_project(disc):
     }
 
 
+def build_manual(entry):
+    # config의 manual 항목 — 로컬 폴더가 없는(채팅/원격 전용) 프로젝트를 직접 정의한다.
+    name = entry["name"]
+    summary = entry.get("summary", "")
+    return {
+        "name": name,
+        "display_name": entry.get("display_name", name),
+        "tool": entry.get("tool", "Cowork"),
+        "summary": summary,
+        "tags": list(entry.get("tags", [])),
+        "status": entry.get("status", "wip"),
+        "last_commit": entry.get("last_commit"),
+        "links": {"repo": entry.get("repo"), "live": entry.get("live")},
+        "fingerprint": 0.0,
+        "summary_stale": not summary,
+    }
+
+
 def merge_projects(new_list, existing):
     by_name = {p["name"]: p for p in existing.get("projects", [])}
     merged = []
     for p in new_list:
         old = by_name.get(p["name"])
-        if old and old.get("summary"):
+        # 새 레코드에 요약이 없을 때만 이전 요약을 보존한다.
+        # (manual 항목은 config가 요약의 출처이므로 덮어쓰지 않는다.)
+        if old and old.get("summary") and not p.get("summary"):
             p["summary"] = old["summary"]
             p["summary_stale"] = old.get("fingerprint") != p["fingerprint"]
         merged.append(p)
@@ -183,6 +203,7 @@ def run_scan(config, output_path):
             existing = {}
     disc = discover_projects(config)
     new_list = [build_project(d) for d in disc]
+    new_list += [build_manual(m) for m in config.get("manual", [])]
     merged = merge_projects(new_list, existing)
     data = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),

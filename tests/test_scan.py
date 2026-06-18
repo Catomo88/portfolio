@@ -157,3 +157,36 @@ def test_discover_projects_dedupes_same_name_across_sources(tmp_path):
     found = scan.discover_projects(config)
     names = [p["name"] for p in found]
     assert names.count("Dup") == 1                    # 두 번째 중복 건너뜀
+
+def test_build_manual_fills_defaults_and_stale_flag():
+    full = scan.build_manual({
+        "name": "tamagotchi", "display_name": "다마고치 진화표", "tool": "Cowork",
+        "summary": "진화 조건 정리", "tags": ["Web"], "status": "live",
+        "live": "https://x.github.io/tamagotchi/",
+    })
+    assert full["display_name"] == "다마고치 진화표"
+    assert full["links"] == {"repo": None, "live": "https://x.github.io/tamagotchi/"}
+    assert full["status"] == "live"
+    assert full["summary_stale"] is False             # 요약 있으면 stale 아님
+    bare = scan.build_manual({"name": "x"})
+    assert bare["tool"] == "Cowork" and bare["status"] == "wip"
+    assert bare["summary_stale"] is True              # 요약 없으면 stale
+
+def test_merge_does_not_clobber_provided_summary():
+    # manual 항목처럼 새 레코드가 이미 요약을 가지면 이전 요약으로 덮지 않는다.
+    new = [{"name": "A", "summary": "config 요약", "fingerprint": 0.0, "summary_stale": False}]
+    existing = {"projects": [{"name": "A", "summary": "옛 요약", "fingerprint": 0.0}]}
+    merged = scan.merge_projects(new, existing)
+    assert merged[0]["summary"] == "config 요약"
+
+def test_run_scan_includes_manual_entries(tmp_path):
+    config = {"sources": [], "exclude": [], "overrides": {},
+              "manual": [{"name": "education", "summary": "교육 자료실",
+                          "tool": "Cowork", "status": "live",
+                          "live": "https://x.github.io/education/"}]}
+    out = tmp_path / "projects.json"
+    result = scan.run_scan(config, out)
+    data = json.loads(out.read_text(encoding="utf-8"))
+    names = [p["name"] for p in data["projects"]]
+    assert "education" in names
+    assert result["stale"] == []                      # 요약 있으니 stale 없음
