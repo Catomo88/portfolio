@@ -107,3 +107,17 @@ def test_merge_new_project_is_stale():
     new = [{"name": "B", "summary": "", "fingerprint": 5.0, "summary_stale": True}]
     merged = scan.merge_projects(new, {"projects": []})
     assert merged[0]["summary_stale"] is True
+
+def test_run_scan_writes_projects_json(tmp_path, monkeypatch):
+    cc = tmp_path / "cc"; (cc / "Gamma").mkdir(parents=True)
+    (cc / "Gamma" / "main.py").write_text("print(1)", encoding="utf-8")
+    config = {"sources": [{"path": str(cc), "tool": "Claude Code"}],
+              "exclude": [], "overrides": {}}
+    out = tmp_path / "projects.json"
+    result = scan.run_scan(config, out)               # 순수 함수형 진입점
+    data = json.loads(out.read_text(encoding="utf-8"))
+    assert "generated_at" in data
+    names = [p["name"] for p in data["projects"]]
+    assert names == ["Gamma"]
+    assert "Python" in data["projects"][0]["tags"]
+    assert result["stale"] == ["Gamma"]               # 요약 필요 목록 반환

@@ -153,3 +153,34 @@ def discover_projects(config):
                 "override": overrides.get(child.name, {}),
             })
     return projects
+
+
+def run_scan(config, output_path):
+    existing = {}
+    if Path(output_path).exists():
+        existing = json.loads(Path(output_path).read_text(encoding="utf-8"))
+    disc = discover_projects(config)
+    new_list = [build_project(d) for d in disc]
+    merged = merge_projects(new_list, existing)
+    data = {
+        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "projects": merged,
+    }
+    Path(output_path).write_text(
+        json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    stale = [p["name"] for p in merged if p["summary_stale"]]
+    return {"total": len(merged), "stale": stale}
+
+
+def main():
+    config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+    result = run_scan(config, OUTPUT_PATH)
+    print(f"{result['total']} projects scanned -> {OUTPUT_PATH.name}")
+    if result["stale"]:
+        print(f"{len(result['stale'])} need summaries (Claude에게 요청): {result['stale']}")
+    else:
+        print("all summaries up to date.")
+
+
+if __name__ == "__main__":
+    main()
