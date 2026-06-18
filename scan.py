@@ -7,6 +7,47 @@ CONFIG_PATH = Path(__file__).parent / "projects.config.json"
 OUTPUT_PATH = Path(__file__).parent / "projects.json"
 
 
+SKIP_DIRS = {".git", "node_modules", "__pycache__", ".superpowers", "_workspace"}
+
+
+def _iter_files(folder, max_depth=3):
+    folder = Path(folder)
+    base = len(folder.parts)
+    for p in folder.rglob("*"):
+        rel_parts = p.parts[base:]
+        if any(part in SKIP_DIRS or part.startswith(".") for part in rel_parts):
+            continue
+        if len(rel_parts) > max_depth:
+            continue
+        if p.is_file():
+            yield p
+
+
+def detect_tags(folder):
+    files = list(_iter_files(folder))
+    names = {f.name for f in files}
+    suffixes = {f.suffix.lower() for f in files}
+    tags = []
+
+    def add(t):
+        if t not in tags:
+            tags.append(t)
+
+    if ".py" in suffixes:
+        add("Python")
+    if "_config.yml" in names or "Gemfile" in names:
+        add("Jekyll")
+    if ".kt" in suffixes or "build.gradle" in names:
+        add("Android")
+    if "pubspec.yaml" in names:
+        add("Flutter")
+    if ".ipynb" in suffixes:
+        add("Notebook")
+    if "index.html" in names:
+        add("Web")
+    return tags
+
+
 def discover_projects(config):
     exclude = set(config.get("exclude", []))
     overrides = config.get("overrides", {})
