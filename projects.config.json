@@ -8,7 +8,8 @@
     "뭐든지_app", "뭐든지_parent_app", "뭐든지_통합"
   ],
   "overrides": {
-    "뭐든지_Claude_Code": { "display_name": "뭐든지 앱" },
+    "뭐든지_Claude_Code": { "display_name": "뭐든지 앱", "tags": ["Android", "Kotlin", "AI"] },
+    "AI English tutor": { "tags": ["Flutter", "AI"] },
     "시간표_관리": { "status": "live" },
     "Play_Archive": { "status": "live" }
   }
