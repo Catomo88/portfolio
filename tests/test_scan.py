@@ -71,6 +71,14 @@ def test_get_git_info_returns_none_for_non_repo(tmp_path):
     info = scan.get_git_info(proj)
     assert info == {"last_commit": None, "repo_url": None}
 
+def test_get_git_info_ignores_parent_repo(tmp_path):
+    # 부모 디렉토리가 git repo이고, 그 안의 하위 폴더는 자체 repo가 아님
+    parent = tmp_path / "parent"; parent.mkdir()
+    _init_git_repo(parent, remote="git@github.com:user/parent.git")
+    child = parent / "child"; child.mkdir()
+    info = scan.get_git_info(child)
+    assert info == {"last_commit": None, "repo_url": None}
+
 def test_build_links_prefers_remote_and_override_live():
     links = scan.build_links("https://github.com/u/r", {"live": "https://x.io"})
     assert links == {"repo": "https://github.com/u/r", "live": "https://x.io"}
@@ -108,7 +116,7 @@ def test_merge_new_project_is_stale():
     merged = scan.merge_projects(new, {"projects": []})
     assert merged[0]["summary_stale"] is True
 
-def test_run_scan_writes_projects_json(tmp_path, monkeypatch):
+def test_run_scan_writes_projects_json(tmp_path):
     cc = tmp_path / "cc"; (cc / "Gamma").mkdir(parents=True)
     (cc / "Gamma" / "main.py").write_text("print(1)", encoding="utf-8")
     config = {"sources": [{"path": str(cc), "tool": "Claude Code"}],
@@ -121,3 +129,31 @@ def test_run_scan_writes_projects_json(tmp_path, monkeypatch):
     assert names == ["Gamma"]
     assert "Python" in data["projects"][0]["tags"]
     assert result["stale"] == ["Gamma"]               # 요약 필요 목록 반환
+
+def test_run_scan_recovers_from_corrupt_existing_json(tmp_path, capsys):
+    cc = tmp_path / "cc"; (cc / "Gamma").mkdir(parents=True)
+    (cc / "Gamma" / "main.py").write_text("print(1)", encoding="utf-8")
+    config = {"sources": [{"path": str(cc), "tool": "Claude Code"}],
+              "exclude": [], "overrides": {}}
+    out = tmp_path / "projects.json"
+    out.write_text("{ this is not valid json", encoding="utf-8")  # 깨진 파일
+    result = scan.run_scan(config, out)               # 크래시 없이 진행
+    data = json.loads(out.read_text(encoding="utf-8"))
+    names = [p["name"] for p in data["projects"]]
+    assert names == ["Gamma"]
+    assert result["total"] == 1
+
+def test_discover_projects_dedupes_same_name_across_sources(tmp_path):
+    cc = tmp_path / "cc"; cw = tmp_path / "cw"
+    (cc / "Dup").mkdir(parents=True)
+    (cw / "Dup").mkdir(parents=True)
+    config = {
+        "sources": [
+            {"path": str(cc), "tool": "Claude Code"},
+            {"path": str(cw), "tool": "Cowork"},
+        ],
+        "exclude": [], "overrides": {},
+    }
+    found = scan.discover_projects(config)
+    names = [p["name"] for p in found]
+    assert names.count("Dup") == 1                    # 두 번째 중복 건너뜀

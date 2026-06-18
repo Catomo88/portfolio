@@ -1,5 +1,7 @@
 import json
+import os
 import subprocess
+import tempfile
 from pathlib import Path
 from datetime import datetime, timezone
 
@@ -50,7 +52,7 @@ def detect_tags(folder):
 
 def _git(folder, *args):
     return subprocess.run(["git", "-C", str(folder), *args],
-                          capture_output=True, text=True)
+                          capture_output=True, text=True, encoding="utf-8")
 
 
 def _normalize_remote(url):
@@ -65,9 +67,17 @@ def _normalize_remote(url):
 
 
 def get_git_info(folder):
-    inside = _git(folder, "rev-parse", "--is-inside-work-tree")
-    if inside.returncode != 0 or inside.stdout.strip() != "true":
-        return {"last_commit": None, "repo_url": None}
+    none = {"last_commit": None, "repo_url": None}
+    top = _git(folder, "rev-parse", "--show-toplevel")
+    if top.returncode != 0:
+        return none
+    toplevel = top.stdout.strip()
+    if not toplevel:
+        return none
+    # 부모 디렉토리가 repo일 때 하위 폴더가 부모 정보를 물려받지 않도록,
+    # 해당 폴더가 repo 루트일 때만 git 정보를 반환한다.
+    if Path(toplevel).resolve() != Path(folder).resolve():
+        return none
     date = _git(folder, "log", "-1", "--format=%cs")
     last_commit = date.stdout.strip() or None
     remote = _git(folder, "remote", "get-url", "origin")
@@ -139,6 +149,7 @@ def discover_projects(config):
     exclude = set(config.get("exclude", []))
     overrides = config.get("overrides", {})
     projects = []
+    seen = set()
     for source in config["sources"]:
         base = Path(source["path"])
         if not base.exists():
@@ -146,6 +157,11 @@ def discover_projects(config):
         for child in sorted(base.iterdir()):
             if not child.is_dir() or child.name in exclude:
                 continue
+            if child.name in seen:
+                print(f"warning: duplicate project name '{child.name}' "
+                      f"({child}) skipped — already found in another source.")
+                continue
+            seen.add(child.name)
             projects.append({
                 "name": child.name,
                 "path": str(child),
@@ -156,9 +172,15 @@ def discover_projects(config):
 
 
 def run_scan(config, output_path):
+    output_path = Path(output_path)
     existing = {}
-    if Path(output_path).exists():
-        existing = json.loads(Path(output_path).read_text(encoding="utf-8"))
+    if output_path.exists():
+        try:
+            existing = json.loads(output_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as e:
+            print(f"warning: {output_path.name} is not valid JSON ({e}); "
+                  f"starting fresh.")
+            existing = {}
     disc = discover_projects(config)
     new_list = [build_project(d) for d in disc]
     merged = merge_projects(new_list, existing)
@@ -166,10 +188,23 @@ def run_scan(config, output_path):
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "projects": merged,
     }
-    Path(output_path).write_text(
-        json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    _atomic_write(output_path, json.dumps(data, ensure_ascii=False, indent=2))
     stale = [p["name"] for p in merged if p["summary_stale"]]
     return {"total": len(merged), "stale": stale}
+
+
+def _atomic_write(path, text):
+    # 임시 파일에 쓴 뒤 os.replace로 교체해 중간 중단 시 손상을 막는다.
+    path = Path(path)
+    fd, tmp = tempfile.mkstemp(dir=str(path.parent), prefix=path.name, suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(text)
+        os.replace(tmp, path)
+    except BaseException:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+        raise
 
 
 def main():
