@@ -139,7 +139,7 @@
       "last_commit": null,
       "links": {
         "repo": null,
-        "live": "https://catomo88.github.io/timie_table/"
+        "live": "https://catomo88.github.io/time_table/"
       },
       "fingerprint": 0.0,
       "summary_stale": false
@@ -152,11 +152,11 @@
       "tags": [
         "Web"
       ],
-      "status": "wip",
+      "status": "live",
       "last_commit": null,
       "links": {
         "repo": null,
-        "live": null
+        "live": "https://catomo88.github.io/Trip_Info/"
       },
       "fingerprint": 0.0,
       "summary_stale": false
@@ -170,11 +170,11 @@
         "Python",
         "Web"
       ],
-      "status": "wip",
+      "status": "live",
       "last_commit": null,
       "links": {
         "repo": null,
-        "live": null
+        "live": "https://catomo88.github.io/Aquarium/"
       },
       "fingerprint": 0.0,
       "summary_stale": false

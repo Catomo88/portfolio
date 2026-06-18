@@ -10,7 +10,9 @@
   "overrides": {
     "뭐든지_Claude_Code": { "display_name": "뭐든지 앱", "tags": ["Android", "Kotlin", "AI"] },
     "AI English tutor": { "tags": ["Flutter", "AI"] },
-    "시간표_관리": { "status": "live", "live": "https://catomo88.github.io/timie_table/" },
-    "Play_Archive": { "status": "live", "live": "https://catomo88.github.io/Play_Archive/" }
+    "시간표_관리": { "status": "live", "live": "https://catomo88.github.io/time_table/" },
+    "Play_Archive": { "status": "live", "live": "https://catomo88.github.io/Play_Archive/" },
+    "원준이네 아쿠아스케이핑": { "status": "live", "live": "https://catomo88.github.io/Aquarium/" },
+    "여행 계획": { "status": "live", "live": "https://catomo88.github.io/Trip_Info/" }
   }
 }
