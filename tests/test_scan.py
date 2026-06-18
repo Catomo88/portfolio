@@ -34,3 +34,15 @@ def test_detect_tags_by_file_markers(tmp_path):
     (proj / ".git" / "x.py").write_text("", encoding="utf-8")
     tags = scan.detect_tags(proj)
     assert "Python" in tags and "Web" in tags
+
+def test_doc_fingerprint_changes_when_docs_change(tmp_path):
+    proj = tmp_path / "p"; proj.mkdir()
+    assert scan.doc_fingerprint(proj) == 0.0          # 문서 없음
+    readme = proj / "README.md"
+    readme.write_text("v1", encoding="utf-8")
+    fp1 = scan.doc_fingerprint(proj)
+    assert fp1 > 0.0
+    import os, time
+    future = time.time() + 100
+    os.utime(readme, (future, future))
+    assert scan.doc_fingerprint(proj) > fp1

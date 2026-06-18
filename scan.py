@@ -48,6 +48,15 @@ def detect_tags(folder):
     return tags
 
 
+DOC_FILES = ["README.md", "README.MD", "Readme.md", "readme.md", "CLAUDE.md"]
+
+
+def doc_fingerprint(folder):
+    folder = Path(folder)
+    times = [(folder / name).stat().st_mtime for name in DOC_FILES if (folder / name).exists()]
+    return max(times) if times else 0.0
+
+
 def discover_projects(config):
     exclude = set(config.get("exclude", []))
     overrides = config.get("overrides", {})
