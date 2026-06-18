@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="dark">
+<html lang="ko" data-theme="light">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -387,7 +387,7 @@ footer {
     // aria-pressed = true when light theme is active (toggle "on" = lights on)
     btn.setAttribute('aria-pressed', dark ? 'false' : 'true');
   }
-  // restore saved theme on load; default dark when no stored value
+  // restore saved theme on load; default light when no stored value
   var saved = null;
   try { saved = localStorage.getItem('theme'); } catch (e) {}
   if (saved === 'light' || saved === 'dark') {
