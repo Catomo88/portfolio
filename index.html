@@ -209,6 +209,20 @@ body {
   color: var(--text-dim); letter-spacing: 0.04em;
   padding: var(--s-16) 0 var(--s-8);
 }
+.sort-select {
+  font-family: var(--font-mono); font-size: var(--fs-12);
+  letter-spacing: 0.04em;
+  color: var(--accent); background: transparent;
+  border: none; border-bottom: var(--border-w) dashed var(--border);
+  padding: 0 16px 1px 2px; margin: 0; cursor: pointer;
+  appearance: none; -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--accent) 50%), linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+  background-position: right 5px center, right 1px center;
+  background-size: 4px 4px, 4px 4px; background-repeat: no-repeat;
+}
+.sort-select:hover { border-bottom-color: var(--accent); }
+.sort-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sort-select option { color: var(--text); background: var(--surface); }
 .grid {
   display: grid;
   grid-template-columns: 1fr;     /* mobile: single log column */
@@ -369,7 +383,7 @@ footer {
     </div>
   </nav>
 
-  <div class="console-label">$ ls ./projects --sort=recent</div>
+  <div class="console-label">$ ls ./projects --sort=<select id="sortSelect" class="sort-select" aria-label="정렬 방식"><option value="recent">recent</option><option value="name">name</option><option value="tool">tool</option><option value="status">status</option></select></div>
 
   <section class="grid" id="grid" aria-label="프로젝트 목록"></section>
 
@@ -505,15 +519,46 @@ footer {
     document.getElementById('statUpdated').textContent = data.generated_at || '–';
   }
 
-  function render(data) {
-    renderStats(data);
+  // ── sort ──
+  var STATUS_ORDER = { live: 0, wip: 1, paused: 2 };
+  function statusRank(s) { return STATUS_ORDER[s] == null ? 9 : STATUS_ORDER[s]; }
+  function byName(a, b) {
+    return (a.display_name || a.name || '').localeCompare(b.display_name || b.name || '', 'ko');
+  }
+
+  function sortProjects(projects, mode) {
+    var ps = projects.slice();
+    if (mode === 'name') {
+      ps.sort(byName);
+    } else if (mode === 'tool') {
+      ps.sort(function (a, b) { return (a.tool || '').localeCompare(b.tool || '') || byName(a, b); });
+    } else if (mode === 'status') {
+      ps.sort(function (a, b) { return (statusRank(a.status) - statusRank(b.status)) || byName(a, b); });
+    } else { // recent (default) — newest commit first, nulls last
+      ps.sort(function (a, b) { return (b.last_commit || '').localeCompare(a.last_commit || ''); });
+    }
+    return ps;
+  }
+
+  var currentData = null;
+
+  function renderGrid() {
+    var sel = document.getElementById('sortSelect');
+    var mode = sel ? sel.value : 'recent';
     var grid = document.getElementById('grid');
     grid.innerHTML = '';
-    (data.projects || []).slice().sort(function (a, b) {
-      return (b.last_commit || '').localeCompare(a.last_commit || '');
-    }).forEach(function (p) { grid.appendChild(card(p)); });
-    wireFilters();
+    sortProjects((currentData && currentData.projects) || [], mode)
+      .forEach(function (p) { grid.appendChild(card(p)); });
     applyFilters();
+  }
+
+  function render(data) {
+    currentData = data;
+    renderStats(data);
+    renderGrid();
+    wireFilters();
+    var sel = document.getElementById('sortSelect');
+    if (sel) sel.addEventListener('change', renderGrid);
     // update footer count
     var total = (data.projects || []).length;
     var footer = document.getElementById('footer');
