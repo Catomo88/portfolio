@@ -46,3 +46,26 @@ def test_doc_fingerprint_changes_when_docs_change(tmp_path):
     future = time.time() + 100
     os.utime(readme, (future, future))
     assert scan.doc_fingerprint(proj) > fp1
+
+def _init_git_repo(path, remote=None):
+    import subprocess
+    def g(*a): subprocess.run(["git", "-C", str(path), *a], check=True,
+                              capture_output=True, text=True)
+    g("init", "-q")
+    g("config", "user.email", "t@t.t"); g("config", "user.name", "t")
+    (path / "f.txt").write_text("x", encoding="utf-8")
+    g("add", "-A"); g("commit", "-q", "-m", "init")
+    if remote:
+        g("remote", "add", "origin", remote)
+
+def test_get_git_info_reads_commit_and_normalizes_ssh_remote(tmp_path):
+    proj = tmp_path / "repo"; proj.mkdir()
+    _init_git_repo(proj, remote="git@github.com:user/repo.git")
+    info = scan.get_git_info(proj)
+    assert info["last_commit"] is not None and len(info["last_commit"]) == 10  # YYYY-MM-DD
+    assert info["repo_url"] == "https://github.com/user/repo"
+
+def test_get_git_info_returns_none_for_non_repo(tmp_path):
+    proj = tmp_path / "plain"; proj.mkdir()
+    info = scan.get_git_info(proj)
+    assert info == {"last_commit": None, "repo_url": None}

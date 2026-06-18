@@ -48,6 +48,33 @@ def detect_tags(folder):
     return tags
 
 
+def _git(folder, *args):
+    return subprocess.run(["git", "-C", str(folder), *args],
+                          capture_output=True, text=True)
+
+
+def _normalize_remote(url):
+    url = (url or "").strip()
+    if not url:
+        return None
+    if url.startswith("git@github.com:"):
+        url = "https://github.com/" + url[len("git@github.com:"):]
+    if url.endswith(".git"):
+        url = url[:-4]
+    return url
+
+
+def get_git_info(folder):
+    inside = _git(folder, "rev-parse", "--is-inside-work-tree")
+    if inside.returncode != 0 or inside.stdout.strip() != "true":
+        return {"last_commit": None, "repo_url": None}
+    date = _git(folder, "log", "-1", "--format=%cs")
+    last_commit = date.stdout.strip() or None
+    remote = _git(folder, "remote", "get-url", "origin")
+    repo_url = _normalize_remote(remote.stdout) if remote.returncode == 0 else None
+    return {"last_commit": last_commit, "repo_url": repo_url}
+
+
 DOC_FILES = ["README.md", "README.MD", "Readme.md", "readme.md", "CLAUDE.md"]
 
 
