@@ -383,10 +383,20 @@ footer {
   function syncToggle() {
     var dark = root.getAttribute('data-theme') === 'dark';
     btn.textContent = dark ? '// light' : '// dark';
+    // aria-pressed = true when light theme is active (toggle "on" = lights on)
+    btn.setAttribute('aria-pressed', dark ? 'false' : 'true');
+  }
+  // restore saved theme on load; default dark when no stored value
+  var saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  if (saved === 'light' || saved === 'dark') {
+    root.setAttribute('data-theme', saved);
   }
   btn.addEventListener('click', function () {
     var dark = root.getAttribute('data-theme') === 'dark';
-    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+    var next = dark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
     syncToggle();
   });
   syncToggle();
@@ -510,11 +520,14 @@ footer {
   }
 
   fetch('projects.json')
-    .then(function (r) { return r.json(); })
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
     .then(render)
     .catch(function (e) {
       document.getElementById('grid').innerHTML =
-        '<p class="card__desc" style="padding:var(--s-16)">projects.json을 불러오지 못했습니다. `python -m http.server`로 실행했는지 확인하세요.</p>';
+        '<p class="card__desc" style="padding:var(--s-16)">projects.json을 불러오지 못했습니다 (' + (e && e.message ? e.message : 'error') + '). `python -m http.server`로 실행했는지 확인하세요.</p>';
       console.error(e);
     });
 })();
