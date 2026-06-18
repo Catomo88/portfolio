@@ -84,6 +84,24 @@ def doc_fingerprint(folder):
     return max(times) if times else 0.0
 
 
+def build_links(repo_url, override):
+    return {"repo": repo_url, "live": override.get("live")}
+
+
+def infer_status(last_commit, links, override, today=None):
+    if override.get("status"):
+        return override["status"]
+    if links.get("live"):
+        return "live"
+    if last_commit:
+        if today is None:
+            today = datetime.now(timezone.utc).date()
+        age = (today - datetime.strptime(last_commit, "%Y-%m-%d").date()).days
+        if age > 90:
+            return "paused"
+    return "wip"
+
+
 def discover_projects(config):
     exclude = set(config.get("exclude", []))
     overrides = config.get("overrides", {})

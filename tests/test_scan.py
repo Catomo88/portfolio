@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from datetime import date
 import scan
 
 def _make_sources(tmp_path):
@@ -69,3 +70,21 @@ def test_get_git_info_returns_none_for_non_repo(tmp_path):
     proj = tmp_path / "plain"; proj.mkdir()
     info = scan.get_git_info(proj)
     assert info == {"last_commit": None, "repo_url": None}
+
+def test_build_links_prefers_remote_and_override_live():
+    links = scan.build_links("https://github.com/u/r", {"live": "https://x.io"})
+    assert links == {"repo": "https://github.com/u/r", "live": "https://x.io"}
+    assert scan.build_links(None, {}) == {"repo": None, "live": None}
+
+def test_infer_status_rules():
+    today = date(2026, 6, 18)
+    # override 우선
+    assert scan.infer_status("2026-06-18", {"live": None}, {"status": "paused"}, today) == "paused"
+    # live 링크 있으면 live
+    assert scan.infer_status("2026-06-18", {"live": "https://x"}, {}, today) == "live"
+    # 90일 초과 무커밋 → paused
+    assert scan.infer_status("2026-01-01", {"live": None}, {}, today) == "paused"
+    # 최근 커밋 → wip
+    assert scan.infer_status("2026-06-10", {"live": None}, {}, today) == "wip"
+    # git 없음(None) → wip
+    assert scan.infer_status(None, {"live": None}, {}, today) == "wip"
