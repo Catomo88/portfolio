@@ -1,0 +1,16 @@
+{
+  "sources": [
+    { "path": "C:/Users/ljk90/OneDrive/Desktop/Papa Jun Kyu", "tool": "Claude Code" },
+    { "path": "C:/Users/ljk90/OneDrive/문서/Claude/Projects", "tool": "Cowork" }
+  ],
+  "exclude": [
+    "Portfolio", "Feedback_SW", "26년도 식단", "색깔놀이_그림",
+    "뭐든지_app", "뭐든지_parent_app", "뭐든지_통합"
+  ],
+  "overrides": {
+    "뭐든지_Claude_Code": { "display_name": "뭐든지 앱", "tags": ["Android", "Kotlin", "AI"] },
+    "AI English tutor": { "tags": ["Flutter", "AI"] },
+    "시간표_관리": { "status": "live", "live": "https://catomo88.github.io/timie_table/" },
+    "Play_Archive": { "status": "live", "live": "https://catomo88.github.io/Play_Archive/" }
+  }
+}

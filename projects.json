@@ -1,0 +1,183 @@
+{
+  "generated_at": "2026-06-18",
+  "projects": [
+    {
+      "name": "image-classifier",
+      "display_name": "image-classifier",
+      "tool": "Claude Code",
+      "summary": "키보드 단축키로 이미지를 폴더별로 빠르게 분류하는 Tkinter 기반 로컬 분류 도구.",
+      "tags": [
+        "Python"
+      ],
+      "status": "wip",
+      "last_commit": "2026-04-24",
+      "links": {
+        "repo": "https://github.com/Catomo88/image-classifier",
+        "live": null
+      },
+      "fingerprint": 1776991751.8232336,
+      "summary_stale": false
+    },
+    {
+      "name": "Soccer_toto",
+      "display_name": "Soccer_toto",
+      "tool": "Claude Code",
+      "summary": "월드컵 경기 승부예측을 실시간으로 공유·채점하는 친목용 웹 게임.",
+      "tags": [
+        "Web"
+      ],
+      "status": "wip",
+      "last_commit": "2026-06-18",
+      "links": {
+        "repo": "https://github.com/Catomo88/soccer-toto",
+        "live": null
+      },
+      "fingerprint": 1781759762.200755,
+      "summary_stale": false
+    },
+    {
+      "name": "Vision_FB_SW",
+      "display_name": "Vision_FB_SW",
+      "tool": "Claude Code",
+      "summary": "카메라 이미지를 불러와 OK/NG/보류 판정·마킹·대시보드를 제공하는 현장용 비전 검사 피드백 도구.",
+      "tags": [
+        "Python",
+        "Web"
+      ],
+      "status": "wip",
+      "last_commit": "2026-06-18",
+      "links": {
+        "repo": "https://github.com/Catomo88/Vision_FB_SW",
+        "live": null
+      },
+      "fingerprint": 1775526427.7241921,
+      "summary_stale": false
+    },
+    {
+      "name": "결함진단피드백_SW",
+      "display_name": "결함진단피드백_SW",
+      "tool": "Claude Code",
+      "summary": "이미지를 브라우저에서 열람하며 결함을 진단하고 마킹 결과를 CSV로 저장하는 Python 웹 도구.",
+      "tags": [
+        "Python"
+      ],
+      "status": "wip",
+      "last_commit": null,
+      "links": {
+        "repo": null,
+        "live": null
+      },
+      "fingerprint": 1775189535.7795978,
+      "summary_stale": false
+    },
+    {
+      "name": "뭐든지_Claude_Code",
+      "display_name": "뭐든지 앱",
+      "tool": "Claude Code",
+      "summary": "아이용 AI 학습 도우미와 부모 모니터링 앱으로 구성된 Android 가족용 AI 튜터 플랫폼.",
+      "tags": [
+        "Android",
+        "Kotlin",
+        "AI"
+      ],
+      "status": "wip",
+      "last_commit": "2026-04-24",
+      "links": {
+        "repo": null,
+        "live": null
+      },
+      "fingerprint": 1781218393.9272952,
+      "summary_stale": false
+    },
+    {
+      "name": "AI English tutor",
+      "display_name": "AI English tutor",
+      "tool": "Cowork",
+      "summary": "OPIc 말하기 등급 대비에 특화된 개인용 영어 말하기 연습·모의시험 Flutter 앱.",
+      "tags": [
+        "Flutter",
+        "AI"
+      ],
+      "status": "wip",
+      "last_commit": null,
+      "links": {
+        "repo": null,
+        "live": null
+      },
+      "fingerprint": 0.0,
+      "summary_stale": false
+    },
+    {
+      "name": "Play_Archive",
+      "display_name": "Play_Archive",
+      "tool": "Cowork",
+      "summary": "플레이한 게임의 공략을 챕터·업적·히든 요소로 정리한 Jekyll 정적 아카이브 사이트.",
+      "tags": [
+        "Python",
+        "Jekyll",
+        "Web"
+      ],
+      "status": "live",
+      "last_commit": null,
+      "links": {
+        "repo": null,
+        "live": "https://catomo88.github.io/Play_Archive/"
+      },
+      "fingerprint": 1779584173.2338681,
+      "summary_stale": false
+    },
+    {
+      "name": "시간표_관리",
+      "display_name": "시간표_관리",
+      "tool": "Cowork",
+      "summary": "주간 시간표를 편집하고 웹에서 조회·공유하는 HTML 기반 시간표 관리 도구.",
+      "tags": [
+        "Python",
+        "Web"
+      ],
+      "status": "live",
+      "last_commit": null,
+      "links": {
+        "repo": null,
+        "live": "https://catomo88.github.io/timie_table/"
+      },
+      "fingerprint": 0.0,
+      "summary_stale": false
+    },
+    {
+      "name": "여행 계획",
+      "display_name": "여행 계획",
+      "tool": "Cowork",
+      "summary": "가족 여행의 숙소 후보를 분석·비교하고 일정을 HTML 대시보드로 정리하는 여행 계획 도구.",
+      "tags": [
+        "Web"
+      ],
+      "status": "wip",
+      "last_commit": null,
+      "links": {
+        "repo": null,
+        "live": null
+      },
+      "fingerprint": 0.0,
+      "summary_stale": false
+    },
+    {
+      "name": "원준이네 아쿠아스케이핑",
+      "display_name": "원준이네 아쿠아스케이핑",
+      "tool": "Cowork",
+      "summary": "가정용 어항의 어종 구성·수질·현황을 한눈에 보는 수족관 관리 대시보드 웹앱.",
+      "tags": [
+        "Python",
+        "Web"
+      ],
+      "status": "wip",
+      "last_commit": null,
+      "links": {
+        "repo": null,
+        "live": null
+      },
+      "fingerprint": 0.0,
+      "summary_stale": false
+    }
+  ]
+}

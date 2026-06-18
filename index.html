@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>build log — 원준 아빠의 프로젝트 콘솔</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   TOKENS — single source of truth (concept: build log / blueprint console)
+   ============================================================ */
+:root {
+  /* type */
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: "IBM Plex Sans KR", Pretendard, system-ui, sans-serif;
+  /* scale 1.250 — Major Third */
+  --fs-12: 12px; --fs-15: 15px; --fs-16: 16px;
+  --fs-20: 20px; --fs-25: 25px; --fs-31: 31px; --fs-39: 39px;
+  /* spacing — 8px grid (4px micro) */
+  --s-4: 4px; --s-8: 8px; --s-12: 12px; --s-16: 16px;
+  --s-24: 24px; --s-32: 32px; --s-48: 48px;
+  /* form */
+  --radius: 6px;
+  --grid-step: 24px;
+  --border-w: 1px;
+
+  /* DARK (default) */
+  --bg: #0E1116;
+  --grid: #1B212B;
+  --surface: #151A21;
+  --surface-2: #19202A;
+  --border: #232A33;
+  --text: #E6E9EE;
+  --text-2: #9AA4B2;
+  --text-dim: #5C6673;
+  --accent: #E8A33D;          /* amber — interaction / current position only */
+  --accent-soft: rgba(232,163,61,0.12);
+  --inset-hi: rgba(255,255,255,0.03);
+  --card-shadow: none;
+
+  /* status signals (project state, never interaction) */
+  --st-wip: #6FA8DC;
+  --st-live: #5FB37A;
+  --st-paused: #7E8794;
+}
+
+html[data-theme="light"] {
+  --bg: #F4F2EC;
+  --grid: #E2DFD5;
+  --surface: #FBFAF6;
+  --surface-2: #F1EFE6;
+  --border: #D9D5C8;
+  --text: #24272B;
+  --text-2: #5B6068;
+  --text-dim: #8A8F97;
+  --accent: #B5731A;
+  --accent-soft: rgba(181,115,26,0.10);
+  --inset-hi: rgba(0,0,0,0.0);
+  --card-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  --st-wip: #3F7FB8;
+  --st-live: #4A9663;
+  --st-paused: #7E8794;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { background: var(--bg); }
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-16);
+  line-height: 1.6;
+  color: var(--text);
+  /* SIGNATURE 1: blueprint micro-grid background */
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(to right, var(--grid) var(--border-w), transparent var(--border-w)),
+    linear-gradient(to bottom, var(--grid) var(--border-w), transparent var(--border-w));
+  background-size: var(--grid-step) var(--grid-step);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 180ms ease, color 180ms ease;
+  min-height: 100vh;
+}
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--s-16); }
+
+/* ============================================================
+   HEADER — compact, sticky
+   ============================================================ */
+.header {
+  position: sticky; top: 0; z-index: 20;
+  /* flat + 1px boundary — no glassmorphism (opaque ink bg, divider only) */
+  background: var(--bg);
+  border-bottom: var(--border-w) solid var(--border);
+}
+.header__inner {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: var(--s-12);
+  padding: var(--s-12) var(--s-16);
+  max-width: 1120px; margin: 0 auto;
+}
+.brand { min-width: 0; }
+.brand__line {
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  text-transform: lowercase;
+}
+.brand__title {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  /* display title — clearly above the 20px stat numerals */
+  font-size: clamp(var(--fs-25), 6vw, var(--fs-39));
+  color: var(--text);
+  line-height: 1.1;
+  letter-spacing: -0.01em;   /* tighter display tracking vs. tracked-out mono labels */
+  white-space: nowrap;
+}
+/* SIGNATURE 3: blinking amber caret */
+.caret {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 400;
+  margin-left: 2px;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.theme-toggle {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+  color: var(--text-2);
+  background: var(--surface);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--s-8) var(--s-12);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: border-color 180ms ease, color 180ms ease;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--text); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* stats row — left-aligned mono numerals */
+.stats {
+  display: flex; flex-wrap: wrap; gap: var(--s-16) var(--s-24);
+  padding: 0 var(--s-16) var(--s-12);
+  max-width: 1120px; margin: 0 auto;
+}
+.stat { display: flex; align-items: baseline; gap: var(--s-8); }
+.stat__num {
+  font-family: var(--font-mono); font-weight: 500;   /* lighter than the 600 display title */
+  font-size: var(--fs-20); color: var(--text-2);      /* secondary ink — title keeps primary */
+}
+.stat__num--live { color: var(--st-live); }
+.stat__num--wip { color: var(--st-wip); }
+.stat__label {
+  font-family: var(--font-mono); font-size: var(--fs-12);
+  color: var(--text-dim); letter-spacing: 0.04em; text-transform: lowercase;
+}
+
+/* ============================================================
+   FILTER CHIPS — command tokens [ all ] [ claude code ] ...
+   ============================================================ */
+.filters {
+  display: flex; flex-wrap: wrap; gap: var(--s-8);
+  padding: var(--s-16) 0 var(--s-8);
+}
+.filter-group { display: flex; flex-wrap: wrap; gap: var(--s-8); }
+.filter-sep {
+  width: var(--border-w); align-self: stretch;
+  background: var(--border); margin: 0 var(--s-4);
+}
+.chip {
+  font-family: var(--font-mono); font-size: var(--fs-12);
+  color: var(--text-2);
+  background: var(--surface);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius);          /* square-ish, no pills */
+  padding: var(--s-8) var(--s-12);
+  cursor: pointer; letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+}
+.chip:hover { border-color: var(--accent); color: var(--text); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* bracket syntax via pseudo-elements */
+.chip::before { content: "[ "; color: var(--text-dim); }
+.chip::after  { content: " ]"; color: var(--text-dim); }
+.chip[aria-pressed="true"] {
+  color: var(--text); background: var(--accent-soft);
+  border-color: var(--accent);
+}
+/* amber dot before active chip */
+.chip[aria-pressed="true"]::before {
+  content: "[ \2022 "; color: var(--accent);
+}
+
+/* ============================================================
+   PROJECT GRID — log tiles, not centered equal cards
+   ============================================================ */
+.console-label {
+  font-family: var(--font-mono); font-size: var(--fs-12);
+  color: var(--text-dim); letter-spacing: 0.04em;
+  padding: var(--s-16) 0 var(--s-8);
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;     /* mobile: single log column */
+  gap: var(--s-12);
+  padding-bottom: var(--s-48);
+}
+
+.card {
+  position: relative;
+  background: var(--surface);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--s-16);
+  box-shadow: var(--card-shadow), inset 0 var(--border-w) 0 var(--inset-hi);
+  display: flex; flex-direction: column; gap: var(--s-12);
+  transition: border-color 180ms ease, background 180ms ease;
+  text-align: left;          /* never centered */
+}
+.card:hover { border-color: var(--accent); background: var(--surface-2); }
+
+/* SIGNATURE: corner crop-marks (ㄱ shape) on top-left + bottom-right */
+.card::before, .card::after {
+  content: ""; position: absolute;
+  width: 8px; height: 8px;
+  border-color: var(--text-dim);
+  opacity: 0.55;
+  pointer-events: none;
+  transition: border-color 180ms ease, opacity 180ms ease;
+}
+.card::before { top: 6px; left: 6px; border-top: var(--border-w) solid; border-left: var(--border-w) solid; }
+.card::after  { bottom: 6px; right: 6px; border-bottom: var(--border-w) solid; border-right: var(--border-w) solid; }
+.card:hover::before, .card:hover::after { border-color: var(--accent); opacity: 1; }
+
+/* card head: status row */
+.card__statusrow {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s-8);
+}
+.status {
+  display: inline-flex; align-items: center; gap: var(--s-8);
+  font-family: var(--font-mono); font-size: var(--fs-12);
+  color: var(--text-2); letter-spacing: 0.02em;
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }     /* only dots are round */
+.status--live .dot { background: var(--st-live); box-shadow: 0 0 0 3px color-mix(in srgb, var(--st-live) 20%, transparent); }
+.status--live { color: var(--st-live); }
+.status--wip .dot { background: var(--st-wip); }
+.status--wip { color: var(--st-wip); }
+.status--paused .dot { background: var(--st-paused); }
+.status--paused { color: var(--st-paused); }
+
+.tool-tag {
+  font-family: var(--font-mono); font-size: var(--fs-12);
+  color: var(--text-dim); letter-spacing: 0.02em;
+}
+
+.card__title {
+  font-family: var(--font-sans); font-weight: 500;
+  font-size: var(--fs-20); color: var(--text);
+  line-height: 1.25;
+}
+.card__desc {
+  font-size: var(--fs-15); color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* tech tags — mono, square */
+.tags { display: flex; flex-wrap: wrap; gap: var(--s-8); }
+.tag {
+  font-family: var(--font-mono); font-size: var(--fs-12);
+  color: var(--text-2);
+  background: var(--surface-2);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius);
+  padding: 2px var(--s-8);
+  letter-spacing: 0.02em;
+}
+
+/* SIGNATURE 2: mono log line at the foot */
+.card__foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s-8);
+  border-top: var(--border-w) solid var(--border);
+  padding-top: var(--s-12);
+  margin-top: auto;
+}
+.log {
+  font-family: var(--font-mono); font-size: var(--fs-12);
+  color: var(--text-dim); letter-spacing: 0.01em;
+}
+.links { display: flex; gap: var(--s-12); }
+.link {
+  font-family: var(--font-mono); font-size: var(--fs-12);
+  color: var(--text-2); text-decoration: none;
+  letter-spacing: 0.02em;
+  border-bottom: var(--border-w) dotted transparent;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+.link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.link--off { color: var(--text-dim); opacity: 0.5; pointer-events: none; }
+
+footer {
+  font-family: var(--font-mono); font-size: var(--fs-12);
+  color: var(--text-dim); letter-spacing: 0.02em;
+  border-top: var(--border-w) solid var(--border);
+  padding: var(--s-16) 0 var(--s-32);
+}
+
+/* ============================================================
+   RESPONSIVE — fill grid as it widens (no equal-3-col mandate)
+   ============================================================ */
+@media (min-width: 600px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: var(--s-16); }
+}
+@media (min-width: 920px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .header__inner, .stats { padding-left: var(--s-24); padding-right: var(--s-24); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret { animation: none; }
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header__inner">
+    <div class="brand">
+      <div class="brand__line">~/papa-junkyu/builds</div>
+      <h1 class="brand__title">build log<span class="caret">▌</span></h1>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">// light</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><span class="stat__num" id="statTotal">–</span><span class="stat__label">projects</span></div>
+    <div class="stat"><span class="stat__num stat__num--wip" id="statWip">–</span><span class="stat__label">in-progress</span></div>
+    <div class="stat"><span class="stat__num stat__num--live" id="statLive">–</span><span class="stat__label">live</span></div>
+    <div class="stat"><span class="stat__num" id="statUpdated">–</span><span class="stat__label">last update</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <nav class="filters" aria-label="필터">
+    <div class="filter-group" role="group" aria-label="구분">
+      <button class="chip" aria-pressed="true">all</button>
+      <button class="chip" aria-pressed="false">claude code</button>
+      <button class="chip" aria-pressed="false">cowork</button>
+    </div>
+    <span class="filter-sep" aria-hidden="true"></span>
+    <div class="filter-group" role="group" aria-label="상태">
+      <button class="chip" aria-pressed="false">in-progress</button>
+      <button class="chip" aria-pressed="false">live</button>
+      <button class="chip" aria-pressed="false">paused</button>
+    </div>
+  </nav>
+
+  <div class="console-label">$ ls ./projects --sort=recent</div>
+
+  <section class="grid" id="grid" aria-label="프로젝트 목록"></section>
+
+  <footer id="footer">// builds logged · auto-generated from projects.json · papa junkyu</footer>
+</main>
+
+<script>
+(function () {
+  // ── theme toggle — dark/light are peer themes, data-theme attribute ──
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+  function syncToggle() {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    btn.textContent = dark ? '// light' : '// dark';
+    // aria-pressed = true when light theme is active (toggle "on" = lights on)
+    btn.setAttribute('aria-pressed', dark ? 'false' : 'true');
+  }
+  // restore saved theme on load; default dark when no stored value
+  var saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  if (saved === 'light' || saved === 'dark') {
+    root.setAttribute('data-theme', saved);
+  }
+  btn.addEventListener('click', function () {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    var next = dark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    syncToggle();
+  });
+  syncToggle();
+
+  // ── render + filter ──
+  var STATUS_LABEL = { wip: 'in-progress', live: 'live', paused: 'paused' };
+
+  function relTime(iso) {
+    if (!iso) return 'no commits';
+    var then = new Date(iso + 'T00:00:00Z');
+    var days = Math.floor((Date.now() - then.getTime()) / 86400000);
+    if (days <= 0) return 'today';
+    if (days < 7) return days + 'd ago';
+    if (days < 30) return Math.floor(days / 7) + 'w ago';
+    if (days < 365) return Math.floor(days / 30) + 'mo ago';
+    return Math.floor(days / 365) + 'y ago';
+  }
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  function card(p) {
+    var art = el('article', 'card');
+    art.dataset.tool = (p.tool || '').toLowerCase();
+    art.dataset.status = p.status || 'wip';
+
+    var row = el('div', 'card__statusrow');
+    var st = el('span', 'status status--' + (p.status || 'wip'));
+    st.appendChild(el('span', 'dot'));
+    st.appendChild(document.createTextNode(STATUS_LABEL[p.status] || p.status || ''));
+    row.appendChild(st);
+    row.appendChild(el('span', 'tool-tag', (p.tool || '').toLowerCase()));
+    art.appendChild(row);
+
+    var body = el('div');
+    body.appendChild(el('h2', 'card__title', p.display_name || p.name));
+    body.appendChild(el('p', 'card__desc', p.summary || '요약 준비 중'));
+    art.appendChild(body);
+
+    var tags = el('div', 'tags');
+    (p.tags || []).forEach(function (t) { tags.appendChild(el('span', 'tag', t)); });
+    art.appendChild(tags);
+
+    var foot = el('div', 'card__foot');
+    foot.appendChild(el('span', 'log', '· last commit ' + relTime(p.last_commit)));
+    var links = el('div', 'links');
+    if (p.links && p.links.repo) {
+      var a = el('a', 'link', 'git'); a.href = p.links.repo; a.target = '_blank'; a.rel = 'noopener';
+      links.appendChild(a);
+    }
+    if (p.links && p.links.live) {
+      var b = el('a', 'link', 'live↗'); b.href = p.links.live; b.target = '_blank'; b.rel = 'noopener';
+      links.appendChild(b);
+    }
+    foot.appendChild(links);
+    art.appendChild(foot);
+    return art;
+  }
+
+  var state = { tool: 'all', statuses: [] };
+
+  function applyFilters() {
+    document.querySelectorAll('.card').forEach(function (c) {
+      var okTool = state.tool === 'all' || c.dataset.tool === state.tool;
+      var okStatus = state.statuses.length === 0 || state.statuses.indexOf(c.dataset.status) !== -1;
+      c.style.display = (okTool && okStatus) ? '' : 'none';
+    });
+  }
+
+  var STATUS_FROM_CHIP = { 'in-progress': 'wip', 'live': 'live', 'paused': 'paused' };
+
+  function wireFilters() {
+    var groups = document.querySelectorAll('.filter-group');
+    // group[0] = tool — single select
+    groups[0].addEventListener('click', function (e) {
+      var chip = e.target.closest('.chip'); if (!chip) return;
+      groups[0].querySelectorAll('.chip').forEach(function (c) {
+        c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
+      });
+      var label = chip.textContent.trim();
+      state.tool = label === 'all' ? 'all' : label;
+      applyFilters();
+    });
+    // group[1] = status — multi toggle
+    if (groups[1]) groups[1].addEventListener('click', function (e) {
+      var chip = e.target.closest('.chip'); if (!chip) return;
+      var pressed = chip.getAttribute('aria-pressed') === 'true';
+      chip.setAttribute('aria-pressed', pressed ? 'false' : 'true');
+      var status = STATUS_FROM_CHIP[chip.textContent.trim()];
+      var i = state.statuses.indexOf(status);
+      if (i === -1) state.statuses.push(status); else state.statuses.splice(i, 1);
+      applyFilters();
+    });
+  }
+
+  function renderStats(data) {
+    var ps = data.projects || [];
+    document.getElementById('statTotal').textContent = ps.length;
+    document.getElementById('statWip').textContent = ps.filter(function (p) { return p.status === 'wip'; }).length;
+    document.getElementById('statLive').textContent = ps.filter(function (p) { return p.status === 'live'; }).length;
+    document.getElementById('statUpdated').textContent = data.generated_at || '–';
+  }
+
+  function render(data) {
+    renderStats(data);
+    var grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    (data.projects || []).slice().sort(function (a, b) {
+      return (b.last_commit || '').localeCompare(a.last_commit || '');
+    }).forEach(function (p) { grid.appendChild(card(p)); });
+    wireFilters();
+    applyFilters();
+    // update footer count
+    var total = (data.projects || []).length;
+    var footer = document.getElementById('footer');
+    if (footer) footer.textContent = '// ' + total + ' builds logged · auto-generated from projects.json · papa junkyu';
+  }
+
+  fetch('projects.json')
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(render)
+    .catch(function (e) {
+      document.getElementById('grid').innerHTML =
+        '<p class="card__desc" style="padding:var(--s-16)">projects.json을 불러오지 못했습니다 (' + (e && e.message ? e.message : 'error') + '). `python -m http.server`로 실행했는지 확인하세요.</p>';
+      console.error(e);
+    });
+})();
+</script>
+</body>
+</html>
