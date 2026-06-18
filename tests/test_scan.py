@@ -88,3 +88,22 @@ def test_infer_status_rules():
     assert scan.infer_status("2026-06-10", {"live": None}, {}, today) == "wip"
     # git 없음(None) → wip
     assert scan.infer_status(None, {"live": None}, {}, today) == "wip"
+
+def test_merge_preserves_summary_when_fingerprint_unchanged():
+    new = [{"name": "A", "summary": "", "fingerprint": 10.0, "summary_stale": True}]
+    existing = {"projects": [{"name": "A", "summary": "기존 요약", "fingerprint": 10.0}]}
+    merged = scan.merge_projects(new, existing)
+    assert merged[0]["summary"] == "기존 요약"
+    assert merged[0]["summary_stale"] is False
+
+def test_merge_marks_stale_when_fingerprint_changed():
+    new = [{"name": "A", "summary": "", "fingerprint": 20.0, "summary_stale": True}]
+    existing = {"projects": [{"name": "A", "summary": "기존", "fingerprint": 10.0}]}
+    merged = scan.merge_projects(new, existing)
+    assert merged[0]["summary"] == "기존"          # 텍스트는 보존
+    assert merged[0]["summary_stale"] is True       # 변경됨 → 갱신 필요
+
+def test_merge_new_project_is_stale():
+    new = [{"name": "B", "summary": "", "fingerprint": 5.0, "summary_stale": True}]
+    merged = scan.merge_projects(new, {"projects": []})
+    assert merged[0]["summary_stale"] is True

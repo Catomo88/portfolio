@@ -102,6 +102,39 @@ def infer_status(last_commit, links, override, today=None):
     return "wip"
 
 
+def build_project(disc):
+    folder = Path(disc["path"])
+    override = disc["override"]
+    git = get_git_info(folder)
+    links = build_links(git["repo_url"], override)
+    status = infer_status(git["last_commit"], links, override)
+    tags = list(override.get("tags", [])) or detect_tags(folder)
+    return {
+        "name": disc["name"],
+        "display_name": override.get("display_name", disc["name"]),
+        "tool": disc["tool"],
+        "summary": "",
+        "tags": tags,
+        "status": status,
+        "last_commit": git["last_commit"],
+        "links": links,
+        "fingerprint": doc_fingerprint(folder),
+        "summary_stale": True,
+    }
+
+
+def merge_projects(new_list, existing):
+    by_name = {p["name"]: p for p in existing.get("projects", [])}
+    merged = []
+    for p in new_list:
+        old = by_name.get(p["name"])
+        if old and old.get("summary"):
+            p["summary"] = old["summary"]
+            p["summary_stale"] = old.get("fingerprint") != p["fingerprint"]
+        merged.append(p)
+    return merged
+
+
 def discover_projects(config):
     exclude = set(config.get("exclude", []))
     overrides = config.get("overrides", {})
