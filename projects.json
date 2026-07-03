@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-18",
+  "generated_at": "2026-07-03",
   "projects": [
     {
       "name": "image-classifier",
@@ -19,6 +19,25 @@
       "summary_stale": false
     },
     {
+      "name": "Kids_Watch",
+      "display_name": "Kids_Watch",
+      "tool": "Claude Code",
+      "summary": "Galaxy Watch(Wear OS) 기반 자녀용 키오스크 스마트워치 앱. 캐릭터 테마·위치·긴급통화, 기기 진단 빌드 포함.",
+      "tags": [
+        "Android",
+        "Kotlin",
+        "Wear OS"
+      ],
+      "status": "wip",
+      "last_commit": "2026-07-02",
+      "links": {
+        "repo": "https://github.com/Catomo88/Kids_Watch",
+        "live": null
+      },
+      "fingerprint": 0.0,
+      "summary_stale": false
+    },
+    {
       "name": "Soccer_toto",
       "display_name": "Soccer_toto",
       "tool": "Claude Code",
@@ -27,12 +46,12 @@
         "Web"
       ],
       "status": "live",
-      "last_commit": "2026-06-18",
+      "last_commit": "2026-06-26",
       "links": {
         "repo": "https://github.com/Catomo88/soccer-toto",
         "live": "https://soccer-toto.web.app"
       },
-      "fingerprint": 1781759762.200755,
+      "fingerprint": 1782429239.8684876,
       "summary_stale": false
     },
     {
@@ -42,10 +61,11 @@
       "summary": "카메라 이미지를 불러와 OK/NG/보류 판정·마킹·대시보드를 제공하는 현장용 비전 검사 피드백 도구.",
       "tags": [
         "Python",
+        "Notebook",
         "Web"
       ],
       "status": "wip",
-      "last_commit": "2026-06-18",
+      "last_commit": "2026-07-02",
       "links": {
         "repo": "https://github.com/Catomo88/Vision_FB_SW",
         "live": null
@@ -81,12 +101,12 @@
         "AI"
       ],
       "status": "wip",
-      "last_commit": "2026-04-24",
+      "last_commit": "2026-06-25",
       "links": {
         "repo": null,
         "live": null
       },
-      "fingerprint": 1781218393.9272952,
+      "fingerprint": 1782345884.1681385,
       "summary_stale": false
     },
     {
