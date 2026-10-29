@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import subprocess
 import tempfile
 from pathlib import Path
@@ -85,6 +86,34 @@ def get_git_info(folder):
     return {"last_commit": last_commit, "repo_url": repo_url}
 
 
+# 진행 로그: 자동 커밋·머지는 잡음이라 빼고, "feat(ui): " 같은 접두어는 떼고 보여준다.
+NOISE = re.compile(r"^(merge\b|chore(\([^)]*\))?: daily)", re.IGNORECASE)
+PREFIX = re.compile(r"^\w+(\([^)]*\))?!?:\s*")
+LOG_LIMIT = 5
+
+
+def _is_repo_root(folder):
+    top = _git(folder, "rev-parse", "--show-toplevel")
+    toplevel = top.stdout.strip() if top.returncode == 0 else ""
+    return bool(toplevel) and Path(toplevel).resolve() == Path(folder).resolve()
+
+
+def get_git_log(folder):
+    if not _is_repo_root(folder):
+        return {"log": [], "activity_30d": 0}
+    recent = _git(folder, "log", "-n", "60", "--no-merges", "--format=%cs%x09%s")
+    log = []
+    for line in recent.stdout.splitlines():
+        date, _, subject = line.partition("\t")
+        if subject and not NOISE.match(subject):
+            log.append({"date": date, "text": PREFIX.sub("", subject).strip()})
+        if len(log) == LOG_LIMIT:
+            break
+    month = _git(folder, "log", "--since=30.days", "--no-merges", "--format=%s")
+    activity = sum(1 for s in month.stdout.splitlines() if s and not NOISE.match(s))
+    return {"log": log, "activity_30d": activity}
+
+
 DOC_FILES = ["README.md", "README.MD", "Readme.md", "readme.md", "CLAUDE.md"]
 
 
@@ -119,6 +148,8 @@ def build_project(disc):
     links = build_links(git["repo_url"], override)
     status = infer_status(git["last_commit"], links, override)
     tags = list(override.get("tags", [])) or detect_tags(folder)
+    history = get_git_log(folder)
+    private = override.get("log") == "count"
     return {
         "name": disc["name"],
         "display_name": override.get("display_name", disc["name"]),
@@ -130,6 +161,10 @@ def build_project(disc):
         "links": links,
         "fingerprint": doc_fingerprint(folder),
         "summary_stale": True,
+        # 업무 프로젝트(override "log": "count")는 공개 페이지라 커밋 내용은 숨기고 개수만 남긴다.
+        "log": [] if private else history["log"],
+        "log_private": private,
+        "activity_30d": history["activity_30d"],
     }
 
 
@@ -148,6 +183,9 @@ def build_manual(entry):
         "links": {"repo": entry.get("repo"), "live": entry.get("live")},
         "fingerprint": 0.0,
         "summary_stale": not summary,
+        "log": [],
+        "log_private": False,
+        "activity_30d": 0,
     }
 
 
@@ -205,8 +243,11 @@ def run_scan(config, output_path):
     new_list = [build_project(d) for d in disc]
     new_list += [build_manual(m) for m in config.get("manual", [])]
     merged = merge_projects(new_list, existing)
+    # 내용이 그대로면 날짜도 그대로 둔다 — 매일 자동 실행이 빈 커밋을 만들지 않게.
+    unchanged = existing.get("projects") == merged and existing.get("generated_at")
     data = {
-        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "generated_at": existing["generated_at"] if unchanged
+        else datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "projects": merged,
     }
     _atomic_write(output_path, json.dumps(data, ensure_ascii=False, indent=2))

@@ -1,11 +1,17 @@
 # 원준 아빠의 프로젝트 대시보드
 
-Claude Code·Cowork로 만든 프로젝트를 한곳에 모으는 개인 대시보드. "빌드 로그 / 청사진 콘솔" 디자인.
+Claude Code·Cowork로 만든 프로젝트를 한곳에 모으는 개인 대시보드. 테마 "맑은 정돈"(모바일 우선 행 목록).
 
 ## 갱신 방법
 1. `python scan.py` — 폴더를 스캔해 `projects.json`의 메타데이터(도구·git 커밋·기술 태그·상태·링크)를 갱신하고, 요약이 필요한 프로젝트를 출력.
 2. 출력된 프로젝트의 요약을 Claude에게 채워달라고 요청(README/CLAUDE.md/코드를 읽고 한 줄 요약 → `projects.json`의 `summary`).
 3. `git add -A && git commit && git push` — GitHub Pages에 자동 반영.
+
+## 매일 자동 갱신 · 진행 로그
+- Windows 작업 스케줄러 `Portfolio-Daily-Update`가 매일 22:00(놓치면 다음 부팅 때) `auto_update.ps1`을 실행 → `scan.py` → `projects.json`이 바뀐 경우에만 커밋·푸시. 실행 기록은 `_workspace/auto_update.log`.
+- 진행 로그는 각 프로젝트의 git 커밋 제목 최근 5건(병합·daily 커밋 제외, `feat:` 같은 접두어 제거)과 최근 30일 커밋 수.
+- 업무·개인정보가 섞인 프로젝트는 config override에 `"log": "count"` → 내용 없이 개수만 공개.
+- 새 프로젝트의 요약은 자동으로 채워지지 않음 → 가끔 Claude에게 "요약 채워줘".
 
 ## 로컬 미리보기
 ```

@@ -190,3 +190,44 @@ def test_run_scan_includes_manual_entries(tmp_path):
     names = [p["name"] for p in data["projects"]]
     assert "education" in names
     assert result["stale"] == []                      # 요약 있으니 stale 없음
+
+def _commit(path, msg):
+    import subprocess
+    (path / "f.txt").write_text(msg, encoding="utf-8")
+    subprocess.run(["git", "-C", str(path), "commit", "-qam", msg], check=True,
+                   capture_output=True, text=True)
+
+def test_get_git_log_filters_noise_and_strips_prefix(tmp_path):
+    proj = tmp_path / "repo"; proj.mkdir()
+    _init_git_repo(proj)
+    _commit(proj, "feat(ui): 버튼 추가")
+    _commit(proj, "chore: daily KBO stats update (2026-10-14)")
+    _commit(proj, "fix: 오타 수정")
+    info = scan.get_git_log(proj)
+    texts = [e["text"] for e in info["log"]]
+    assert texts[:2] == ["오타 수정", "버튼 추가"]          # 최신순, 접두어 제거
+    assert all("daily" not in t for t in texts)            # 자동 커밋 제외
+    assert info["activity_30d"] == 3                       # init + 2 (daily 제외)
+
+def test_get_git_log_non_repo_is_empty(tmp_path):
+    proj = tmp_path / "plain"; proj.mkdir()
+    assert scan.get_git_log(proj) == {"log": [], "activity_30d": 0}
+
+def test_build_project_private_log_keeps_count_only(tmp_path):
+    proj = tmp_path / "Work"; proj.mkdir()
+    _init_git_repo(proj)
+    _commit(proj, "feat: 사내 시스템 연동")
+    rec = scan.build_project({"name": "Work", "path": str(proj), "tool": "Claude Code",
+                              "override": {"log": "count"}})
+    assert rec["log"] == [] and rec["log_private"] is True
+    assert rec["activity_30d"] == 2
+
+def test_run_scan_keeps_generated_at_when_nothing_changed(tmp_path):
+    cc = tmp_path / "cc"; (cc / "A").mkdir(parents=True)
+    config = {"sources": [{"path": str(cc), "tool": "Claude Code"}], "exclude": [], "overrides": {}}
+    out = tmp_path / "projects.json"
+    scan.run_scan(config, out)
+    data = json.loads(out.read_text(encoding="utf-8")); data["generated_at"] = "2000-01-01"
+    out.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+    scan.run_scan(config, out)
+    assert json.loads(out.read_text(encoding="utf-8"))["generated_at"] == "2000-01-01"

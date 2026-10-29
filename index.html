@@ -271,6 +271,43 @@ html[data-theme="dark"] .theme-btn .i-moon { display: none; }
 .foot { font-size: var(--fs-13); color: var(--text-3); padding: var(--s-24) var(--s-4) var(--s-32); }
 
 /* ============================================================
+   RECENT ACTIVITY — three latest work notes across projects (header, scrolls away)
+   same inset-grouped panel language as the list
+   ============================================================ */
+.activity { margin-top: var(--s-12); margin-bottom: -8px; }   /* tucks into the header bottom padding: ~150px added on mobile */
+.activity[hidden] { display: none; }
+.activity__h { font-size: var(--fs-13); font-weight: 500; color: var(--text-3); line-height: 16px; margin: 0 0 4px var(--s-4); }
+.activity__list { list-style: none; background: var(--surface); border-radius: var(--r-panel); overflow: hidden; }
+.act { position: relative; }
+.act + .act::before { content: ""; position: absolute; top: 0; left: var(--s-16); right: 0; height: 1px; background: var(--line); }
+.act__btn {
+  width: 100%; min-height: 44px; display: flex; align-items: center; gap: var(--s-8);
+  padding: 0 var(--s-16); text-align: left; transition: background-color .15s ease;
+}
+.act__btn:hover { background: var(--surface-2); }
+.act__btn:focus-visible { outline-offset: -2px; }
+.act__name { flex: none; max-width: 42%; font-size: var(--fs-14); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.act__text { flex: 1; min-width: 0; font-size: var(--fs-14); color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.act__date { flex: none; font-size: var(--fs-13); font-weight: 500; color: var(--text-3); white-space: nowrap; }
+
+/* tapped from "최근 활동": the target row glows once in the action tint */
+@keyframes target-glow { from { background-color: var(--accent-soft); } }
+.item.is-target { animation: target-glow 1.4s ease-out; }
+
+/* ============================================================
+   WORK LOG inside an opened row — date (tabular) + note, two lines max
+   ============================================================ */
+.worklog__h { font-size: var(--fs-13); font-weight: 500; color: var(--text-3); margin-bottom: 6px; }
+.worklog__list { list-style: none; display: grid; grid-template-columns: auto 1fr; gap: 6px var(--s-12); }
+.worklog__list li { display: contents; }
+.worklog__date { font-size: var(--fs-13); font-weight: 500; color: var(--text-3); white-space: nowrap; line-height: 21px; }
+.worklog__text {
+  font-size: var(--fs-14); line-height: 1.5; color: var(--text); min-width: 0;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
+}
+.worklog__private { font-size: var(--fs-14); line-height: 1.5; color: var(--text-2); }
+
+/* ============================================================
    DESKTOP (≥ 760px) — the panel opens into 2–3 columns of tiles.
    Same markup; every entry is shown expanded. Still no shadows.
    ============================================================ */
@@ -294,6 +331,8 @@ html[data-theme="dark"] .theme-btn .i-moon { display: none; }
   .toggle .slot { margin-top: 0; margin-left: var(--s-8); }                 /* status word already sits inside the padded toggle */
   .detail, .detail[hidden] { display: flex; flex: 1; padding: 0 var(--s-20) var(--s-20); }
   .actions { margin-top: auto; padding-top: var(--s-4); }
+  .activity { max-width: 720px; }
+  .worklog__list li:nth-child(n+4) { display: none; }   /* tiles stay calm: three notes each */
 }
 @media (min-width: 1040px) {
   .list { grid-template-columns: repeat(3, 1fr); }
@@ -321,6 +360,10 @@ html[data-theme="dark"] .theme-btn .i-moon { display: none; }
     <div class="sum sum--live"><div class="sum__n" id="statLive">–</div><div class="sum__l">라이브</div></div>
     <div class="sum sum--wip"><div class="sum__n" id="statWip">–</div><div class="sum__l">만드는 중</div></div>
   </div>
+  <section class="activity" id="activity" aria-labelledby="activityH" hidden>
+    <h2 class="activity__h" id="activityH">최근 활동</h2>
+    <ul class="activity__list" id="activityList"></ul>
+  </section>
 </header>
 
 <div class="findbar">
@@ -469,6 +512,8 @@ html[data-theme="dark"] .theme-btn .i-moon { display: none; }
       p.tags.forEach(function (x) { tags.appendChild(el('span', 'tag', x)); });
       d.appendChild(tags);
     }
+    var wl = workLog(p);
+    if (wl) d.appendChild(wl);
     var facts = el('dl', 'facts');
     function fact(k, v) { facts.appendChild(el('dt', null, k)); facts.appendChild(el('dd', null, v)); }
     if (p.tool) fact('만든 도구', p.tool);
@@ -490,6 +535,34 @@ html[data-theme="dark"] .theme-btn .i-moon { display: none; }
       li.classList.toggle('is-open', open);
     });
     return li;
+  }
+
+  // "최근 작업": public notes as a list; private projects only say how busy they were
+  function workLog(p) {
+    var log = p.log || [];
+    if (!p.log_private && !log.length) return null;
+    var box = el('div', 'worklog');
+    box.appendChild(el('h3', 'worklog__h', '최근 작업'));
+    if (p.log_private) {
+      var n = p.activity_30d || 0;
+      box.appendChild(el('p', 'worklog__private', n
+        ? '최근 30일 동안 ' + n + '건 작업했어요. 내용은 비공개예요.'
+        : '최근 30일 동안 작업이 없었어요. 기록은 비공개예요.'));
+      return box;
+    }
+    var ol = el('ol', 'worklog__list');
+    log.forEach(function (e) {
+      var li = el('li');
+      var tm = el('time', 'worklog__date', fmtDate(e.date));
+      tm.dateTime = e.date;
+      li.appendChild(tm);
+      var tx = el('span', 'worklog__text', e.text);
+      tx.title = e.text;
+      li.appendChild(tx);
+      ol.appendChild(li);
+    });
+    box.appendChild(ol);
+    return box;
   }
 
   // desktop: tiles are always expanded; the row is not a control
@@ -610,6 +683,54 @@ html[data-theme="dark"] .theme-btn .i-moon { display: none; }
   }
   sel.addEventListener('change', renderList);
 
+  // ── recent activity: newest public notes across projects, top 3 ──
+  // same-day ties interleave projects (each project's newest note first) so one busy day doesn't fill all three
+  function renderActivity(ps) {
+    var all = [];
+    ps.forEach(function (p, pi) {
+      if (p.log_private) return;
+      (p.log || []).forEach(function (e, ei) { all.push({ p: p, e: e, pi: pi, ei: ei }); });
+    });
+    all.sort(function (a, b) { return (b.e.date || '').localeCompare(a.e.date || '') || (a.ei - b.ei) || (a.pi - b.pi); });
+    var top = all.slice(0, 3);
+    var box = document.getElementById('activity');
+    var ul = document.getElementById('activityList');
+    ul.innerHTML = '';
+    box.hidden = !top.length;
+    top.forEach(function (x) {
+      var name = x.p.display_name || x.p.name;
+      var li = el('li', 'act');
+      var b = el('button', 'act__btn');
+      b.type = 'button';
+      b.setAttribute('aria-label', name + ', ' + fmtDate(x.e.date) + ', ' + x.e.text + '. 목록에서 보기');
+      b.appendChild(el('span', 'act__name', name));
+      b.appendChild(el('span', 'act__text', x.e.text));
+      b.appendChild(el('span', 'act__date', fmtDate(x.e.date)));
+      b.addEventListener('click', function () { reveal(x.p.name || name); });
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+  }
+
+  // scroll to a project's row (clearing filters if it is hidden) and open it
+  function reveal(key) {
+    var li = null;
+    document.querySelectorAll('.item').forEach(function (x) { if (x.dataset.key === key) li = x; });
+    if (!li) return;
+    if (li.hidden) {
+      state.status = null; state.tool = null; state.q = ''; input.value = ''; clearBtn.hidden = true;
+      setChips(); apply();
+    }
+    var t = li.querySelector('.toggle');
+    if (!desktop.matches && t.getAttribute('aria-expanded') !== 'true') t.click();
+    li.style.scrollMarginTop = (document.querySelector('.findbar').offsetHeight + 12) + 'px';
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    li.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    li.classList.remove('is-target'); void li.offsetWidth; li.classList.add('is-target');
+    var fx = desktop.matches ? (li.querySelector('.open') || li.querySelector('.code-link')) : t;
+    if (fx) fx.focus({ preventScroll: true });
+  }
+
   function render(d) {
     data = d;
     var ps = d.projects || [];
@@ -624,6 +745,7 @@ html[data-theme="dark"] .theme-btn .i-moon { display: none; }
       ? fmtDate(d.generated_at) + '에 마지막으로 업데이트했어요.'
       : '';
     renderList();
+    renderActivity(ps);
   }
 
   fetch('projects.json')
