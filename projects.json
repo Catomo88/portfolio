@@ -17,7 +17,10 @@
         "live": null
       },
       "fingerprint": 0.0,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": false,
+      "activity_30d": 0
     },
     {
       "name": "Art_Exhibition",
@@ -35,7 +38,10 @@
         "live": "https://art-index-seoul.web.app"
       },
       "fingerprint": 0.0,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": false,
+      "activity_30d": 0
     },
     {
       "name": "Class_Review",
@@ -54,7 +60,31 @@
         "live": null
       },
       "fingerprint": 1793013821.4905603,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [
+        {
+          "date": "2026-10-26",
+          "text": "v0.5 리뷰 반영 — 기한 초과는 재시도 안 함, 없는 녹음 재업로드, 동시 업로드 경쟁, 가족 문서 키 안 읽음, 한국어 오류 문구"
+        },
+        {
+          "date": "2026-10-26",
+          "text": "v0.5 수업 분석을 가족 서버(classAnalyze)로 — 기기 키·모델 선택 제거"
+        },
+        {
+          "date": "2026-10-26",
+          "text": "v0.4 녹음 원본 Firebase Storage 자동 백업"
+        },
+        {
+          "date": "2026-10-26",
+          "text": "v0.3 녹음 원본 보관·내보내기 + 리포트에 교재 자료 추가"
+        },
+        {
+          "date": "2026-10-08",
+          "text": "v0.2 — 리포트 저장 후 부모앱에 푸시 알림"
+        }
+      ],
+      "log_private": false,
+      "activity_30d": 7
     },
     {
       "name": "Health",
@@ -72,7 +102,10 @@
         "live": null
       },
       "fingerprint": 0.0,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": false,
+      "activity_30d": 0
     },
     {
       "name": "image-classifier",
@@ -89,7 +122,10 @@
         "live": null
       },
       "fingerprint": 1776991751.8232336,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": true,
+      "activity_30d": 0
     },
     {
       "name": "KBO_card",
@@ -108,7 +144,31 @@
         "live": null
       },
       "fingerprint": 1793251337.5981207,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [
+        {
+          "date": "2026-10-29",
+          "text": "선발 노트에 유리한 점·변수, 공식 부상자명단 이력 반영"
+        },
+        {
+          "date": "2026-10-29",
+          "text": "진행 개수 표시, AI 호출 시간 제한, 메인 페이지 바로가기"
+        },
+        {
+          "date": "2026-10-29",
+          "text": "불펜 투수 상대팀 기록 undefined로 Firestore 저장 실패"
+        },
+        {
+          "date": "2026-10-29",
+          "text": "선발 공략 노트: 경기 선택 분석(선발 노트 + 불펜 카드) 추가"
+        },
+        {
+          "date": "2026-10-27",
+          "text": "비시즌 자동 휴식: 리그 데이터 없으면 스크래퍼 graceful skip(exit 0), 크론은 3-10월만 실행"
+        }
+      ],
+      "log_private": false,
+      "activity_30d": 5
     },
     {
       "name": "Kids_Watch",
@@ -127,7 +187,31 @@
         "live": null
       },
       "fingerprint": 0.0,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [
+        {
+          "date": "2026-07-20",
+          "text": "부모앱-워치 watchSettings 계약 명세"
+        },
+        {
+          "date": "2026-07-20",
+          "text": "부모앱 원격 설정 - 수업제한 on/off + 보라 쉼 수치 조절"
+        },
+        {
+          "date": "2026-07-20",
+          "text": "보라 과의존 방지 쉼 - 20턴마다 3분 멈춤"
+        },
+        {
+          "date": "2026-07-20",
+          "text": "보라 대화 로깅(부모 대시보드) + 사용량 집계"
+        },
+        {
+          "date": "2026-07-19",
+          "text": "로봇놀이 모드에 로봇 보라 아트 연결"
+        }
+      ],
+      "log_private": false,
+      "activity_30d": 0
     },
     {
       "name": "Pokemon_Card",
@@ -145,7 +229,10 @@
         "live": "https://pokecard-binder.web.app"
       },
       "fingerprint": 0.0,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": false,
+      "activity_30d": 0
     },
     {
       "name": "Soccer_toto",
@@ -162,7 +249,31 @@
         "live": "https://soccer-toto.web.app"
       },
       "fingerprint": 1782429239.8684876,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [
+        {
+          "date": "2026-06-26",
+          "text": "3위 순위표 압축 행 레이아웃으로 교체(모바일 가로 스크롤 제거) + 파라과이 vs 호주(6/28 11:00) 시드 정정"
+        },
+        {
+          "date": "2026-06-26",
+          "text": "메인을 16강 진출 추적(베스트 3위 순위표)로 교체 - FIFA랭킹+승리확률+잔여경기, Firestore wc2026_thirdplace 실시간 구독+추적작업 자동갱신. 게임 페이지는 templates/로 보존, 누적순위 탭 유지"
+        },
+        {
+          "date": "2026-06-25",
+          "text": "경우의 수에 32강 대진 추가 - 2위(승·무)→캐나다(6/28 SoFi), 3위→조1위(독일 유력·미확정)"
+        },
+        {
+          "date": "2026-06-19",
+          "text": "경우의 수 펼치기 압축 - 문장체→핵심만 단문 4줄"
+        },
+        {
+          "date": "2026-06-19",
+          "text": "경우의 수 정정: 비기면 16강 확정(체코 동률 시 승자승 2위). 2026 월드컵 동률 1순위가 맞대결"
+        }
+      ],
+      "log_private": false,
+      "activity_30d": 0
     },
     {
       "name": "Vision_FB_SW",
@@ -181,7 +292,10 @@
         "live": null
       },
       "fingerprint": 1775526427.7241921,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": true,
+      "activity_30d": 47
     },
     {
       "name": "결함진단피드백_SW",
@@ -198,7 +312,10 @@
         "live": null
       },
       "fingerprint": 1775189535.7795978,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": true,
+      "activity_30d": 0
     },
     {
       "name": "다마고치",
@@ -216,7 +333,10 @@
         "live": "https://catomo88.github.io/tamagotchi/"
       },
       "fingerprint": 0.0,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": false,
+      "activity_30d": 0
     },
     {
       "name": "뭐든지_Vibe_Coder",
@@ -235,7 +355,31 @@
         "live": "https://vibe-coder.web.app"
       },
       "fingerprint": 1793013155.78263,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [
+        {
+          "date": "2026-10-29",
+          "text": "KBO 선발 공략 노트(codebase kbo) 함수·컬렉션 추가"
+        },
+        {
+          "date": "2026-10-27",
+          "text": "Ollie 화상영어 구현 계획"
+        },
+        {
+          "date": "2026-10-27",
+          "text": "Ollie 준비되는 대로 사용, VIPKid 끝날 때까지 병행"
+        },
+        {
+          "date": "2026-10-27",
+          "text": "Ollie 화상영어 앱 설계"
+        },
+        {
+          "date": "2026-10-27",
+          "text": "진행현황 — 부모 앱 v1.8, 워치 보류 사유, 스택찬 절감, 화상영어 비용 실측"
+        }
+      ],
+      "log_private": false,
+      "activity_30d": 58
     },
     {
       "name": "여행계획",
@@ -252,7 +396,10 @@
         "live": "https://catomo88.github.io/Trip_Info/"
       },
       "fingerprint": 0.0,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": true,
+      "activity_30d": 6
     },
     {
       "name": "AI English tutor",
@@ -270,7 +417,10 @@
         "live": null
       },
       "fingerprint": 0.0,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": false,
+      "activity_30d": 0
     },
     {
       "name": "Play_Archive",
@@ -289,7 +439,10 @@
         "live": "https://catomo88.github.io/Play_Archive/"
       },
       "fingerprint": 1779584173.2338681,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": false,
+      "activity_30d": 0
     },
     {
       "name": "시간표_관리",
@@ -307,7 +460,10 @@
         "live": "https://catomo88.github.io/time_table/"
       },
       "fingerprint": 0.0,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": false,
+      "activity_30d": 0
     },
     {
       "name": "원준이네 아쿠아스케이핑",
@@ -325,7 +481,10 @@
         "live": "https://catomo88.github.io/Aquarium/"
       },
       "fingerprint": 0.0,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": false,
+      "activity_30d": 0
     },
     {
       "name": "education",
@@ -343,7 +502,10 @@
         "live": "https://catomo88.github.io/education/"
       },
       "fingerprint": 0.0,
-      "summary_stale": false
+      "summary_stale": false,
+      "log": [],
+      "log_private": false,
+      "activity_30d": 0
     }
   ]
 }
