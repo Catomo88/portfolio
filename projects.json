@@ -3,7 +3,7 @@
   "projects": [
     {
       "name": "AI_Movie",
-      "display_name": "AI_Movie",
+      "display_name": "AI 애니메이션",
       "tool": "Claude Code",
       "summary": "아이 눈높이 AI 애니메이션 제작 프로젝트. 1화 '삐약이의 우산' 대본·콘티·영상 생성 준비 중.",
       "tags": [
@@ -39,7 +39,7 @@
     },
     {
       "name": "Class_Review",
-      "display_name": "Class_Review",
+      "display_name": "화상영어 수업 리뷰",
       "tool": "Claude Code",
       "summary": "화상영어 수업 녹음을 Gemini로 분석해 수업 품질 리포트를 만드는 도구.",
       "tags": [
@@ -58,7 +58,7 @@
     },
     {
       "name": "Health",
-      "display_name": "Health",
+      "display_name": "건강 기록",
       "tool": "Claude Code",
       "summary": "체중·건강 목표와 기록을 한눈에 보는 개인 건강 대시보드.",
       "tags": [
@@ -76,7 +76,7 @@
     },
     {
       "name": "image-classifier",
-      "display_name": "image-classifier",
+      "display_name": "이미지 분류기",
       "tool": "Claude Code",
       "summary": "키보드 단축키로 이미지를 폴더별로 빠르게 분류하는 Tkinter 기반 로컬 분류 도구.",
       "tags": [
@@ -93,7 +93,7 @@
     },
     {
       "name": "KBO_card",
-      "display_name": "KBO_card",
+      "display_name": "KBO 봉인 카드",
       "tool": "Claude Code",
       "summary": "KBO 구단 기록을 '봉인된 야구 유물' 콘셉트의 프리미엄 카드로 보여주는 웹. 시즌 중 매일 자동 갱신.",
       "tags": [
@@ -102,17 +102,17 @@
         "Actions"
       ],
       "status": "wip",
-      "last_commit": "2026-10-27",
+      "last_commit": "2026-10-29",
       "links": {
         "repo": "https://github.com/Catomo88/kbo-card",
         "live": null
       },
-      "fingerprint": 1784454540.152879,
+      "fingerprint": 1793251337.5981207,
       "summary_stale": false
     },
     {
       "name": "Kids_Watch",
-      "display_name": "Kids_Watch",
+      "display_name": "키즈 워치",
       "tool": "Claude Code",
       "summary": "Galaxy Watch(Wear OS) 기반 자녀용 키오스크 스마트워치 앱. 캐릭터 테마·위치·긴급통화, 기기 진단 빌드 포함.",
       "tags": [
@@ -149,7 +149,7 @@
     },
     {
       "name": "Soccer_toto",
-      "display_name": "Soccer_toto",
+      "display_name": "축구 승부예측",
       "tool": "Claude Code",
       "summary": "월드컵 경기 승부예측을 실시간으로 공유·채점하는 친목용 웹 게임.",
       "tags": [
@@ -166,7 +166,7 @@
     },
     {
       "name": "Vision_FB_SW",
-      "display_name": "Vision_FB_SW",
+      "display_name": "비전 검사 피드백",
       "tool": "Claude Code",
       "summary": "카메라 이미지를 불러와 OK/NG/보류 판정·마킹·대시보드를 제공하는 현장용 비전 검사 피드백 도구.",
       "tags": [
@@ -185,7 +185,7 @@
     },
     {
       "name": "결함진단피드백_SW",
-      "display_name": "결함진단피드백_SW",
+      "display_name": "결함 진단 피드백",
       "tool": "Claude Code",
       "summary": "이미지를 브라우저에서 열람하며 결함을 진단하고 마킹 결과를 CSV로 저장하는 Python 웹 도구.",
       "tags": [
@@ -229,7 +229,7 @@
         "AI"
       ],
       "status": "live",
-      "last_commit": "2026-10-27",
+      "last_commit": "2026-10-29",
       "links": {
         "repo": "https://github.com/Catomo88/mudeungi-code",
         "live": "https://vibe-coder.web.app"
@@ -256,7 +256,7 @@
     },
     {
       "name": "AI English tutor",
-      "display_name": "AI English tutor",
+      "display_name": "AI 영어 튜터",
       "tool": "Cowork",
       "summary": "OPIc 말하기 등급 대비에 특화된 개인용 영어 말하기 연습·모의시험 Flutter 앱.",
       "tags": [
@@ -274,7 +274,7 @@
     },
     {
       "name": "Play_Archive",
-      "display_name": "Play_Archive",
+      "display_name": "게임 공략 아카이브",
       "tool": "Cowork",
       "summary": "플레이한 게임의 공략을 챕터·업적·히든 요소로 정리한 Jekyll 정적 아카이브 사이트.",
       "tags": [
@@ -293,7 +293,7 @@
     },
     {
       "name": "시간표_관리",
-      "display_name": "시간표_관리",
+      "display_name": "아이들 시간표",
       "tool": "Cowork",
       "summary": "주간 시간표를 편집하고 웹에서 조회·공유하는 HTML 기반 시간표 관리 도구.",
       "tags": [
@@ -311,7 +311,7 @@
     },
     {
       "name": "원준이네 아쿠아스케이핑",
-      "display_name": "원준이네 아쿠아스케이핑",
+      "display_name": "원준이네 어항",
       "tool": "Cowork",
       "summary": "가정용 어항의 어종 구성·수질·현황을 한눈에 보는 수족관 관리 대시보드 웹앱.",
       "tags": [

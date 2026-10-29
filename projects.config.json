@@ -1,28 +1,145 @@
 {
   "sources": [
-    { "path": "C:/Users/ljk90/Desktop/Papa Jun Kyu", "tool": "Claude Code" },
-    { "path": "C:/Users/ljk90/Documents/Claude/Projects", "tool": "Cowork" }
+    {
+      "path": "C:/Users/ljk90/Desktop/Papa Jun Kyu",
+      "tool": "Claude Code"
+    },
+    {
+      "path": "C:/Users/ljk90/Documents/Claude/Projects",
+      "tool": "Cowork"
+    }
   ],
   "exclude": [
-    ".claude", "Portfolio", "Feedback_SW", "26년도 식단", "색깔놀이_그림", "아이들 학업",
-    "뭐든지_Claude_Code", "뭐든지_초기작업_보관", "여행 계획"
+    ".claude",
+    "Portfolio",
+    "Feedback_SW",
+    "26년도 식단",
+    "색깔놀이_그림",
+    "아이들 학업",
+    "뭐든지_Claude_Code",
+    "뭐든지_초기작업_보관",
+    "여행 계획"
   ],
   "overrides": {
-    "뭐든지_Vibe_Coder": { "display_name": "뭐든지 코드", "tags": ["Web", "Firebase", "AI"], "status": "live", "live": "https://vibe-coder.web.app" },
-    "Kids_Watch": { "tags": ["Android", "Kotlin", "Wear OS"] },
-    "KBO_card": { "tags": ["Web", "Python", "Actions"] },
-    "Class_Review": { "tags": ["Web", "Firebase", "Gemini"] },
-    "AI_Movie": { "tags": ["AI Video", "ComfyUI"] },
-    "Art_Exhibition": { "display_name": "전시 색인", "tags": ["Web", "Firebase"], "status": "live", "live": "https://art-index-seoul.web.app" },
-    "Pokemon_Card": { "display_name": "포켓몬 카드 도감", "tags": ["Web", "Firebase"], "status": "live", "live": "https://pokecard-binder.web.app" },
-    "Health": { "tags": ["Web", "Firebase"] },
-    "다마고치": { "display_name": "다마고치 진화표", "tags": ["Web", "HTML"], "status": "live", "live": "https://catomo88.github.io/tamagotchi/" },
-    "여행계획": { "display_name": "여행 계획", "tags": ["Web"], "status": "live", "live": "https://catomo88.github.io/Trip_Info/" },
-    "AI English tutor": { "tags": ["Flutter", "AI"] },
-    "Soccer_toto": { "status": "live", "live": "https://soccer-toto.web.app" },
-    "시간표_관리": { "status": "live", "live": "https://catomo88.github.io/time_table/" },
-    "Play_Archive": { "status": "live", "live": "https://catomo88.github.io/Play_Archive/" },
-    "원준이네 아쿠아스케이핑": { "status": "live", "live": "https://catomo88.github.io/Aquarium/" }
+    "뭐든지_Vibe_Coder": {
+      "display_name": "뭐든지 코드",
+      "tags": [
+        "Web",
+        "Firebase",
+        "AI"
+      ],
+      "status": "live",
+      "live": "https://vibe-coder.web.app"
+    },
+    "Kids_Watch": {
+      "tags": [
+        "Android",
+        "Kotlin",
+        "Wear OS"
+      ],
+      "display_name": "키즈 워치"
+    },
+    "KBO_card": {
+      "tags": [
+        "Web",
+        "Python",
+        "Actions"
+      ],
+      "display_name": "KBO 봉인 카드"
+    },
+    "Class_Review": {
+      "tags": [
+        "Web",
+        "Firebase",
+        "Gemini"
+      ],
+      "display_name": "화상영어 수업 리뷰"
+    },
+    "AI_Movie": {
+      "tags": [
+        "AI Video",
+        "ComfyUI"
+      ],
+      "display_name": "AI 애니메이션"
+    },
+    "Art_Exhibition": {
+      "display_name": "전시 색인",
+      "tags": [
+        "Web",
+        "Firebase"
+      ],
+      "status": "live",
+      "live": "https://art-index-seoul.web.app"
+    },
+    "Pokemon_Card": {
+      "display_name": "포켓몬 카드 도감",
+      "tags": [
+        "Web",
+        "Firebase"
+      ],
+      "status": "live",
+      "live": "https://pokecard-binder.web.app"
+    },
+    "Health": {
+      "tags": [
+        "Web",
+        "Firebase"
+      ],
+      "display_name": "건강 기록"
+    },
+    "다마고치": {
+      "display_name": "다마고치 진화표",
+      "tags": [
+        "Web",
+        "HTML"
+      ],
+      "status": "live",
+      "live": "https://catomo88.github.io/tamagotchi/"
+    },
+    "여행계획": {
+      "display_name": "여행 계획",
+      "tags": [
+        "Web"
+      ],
+      "status": "live",
+      "live": "https://catomo88.github.io/Trip_Info/"
+    },
+    "AI English tutor": {
+      "tags": [
+        "Flutter",
+        "AI"
+      ],
+      "display_name": "AI 영어 튜터"
+    },
+    "Soccer_toto": {
+      "status": "live",
+      "live": "https://soccer-toto.web.app",
+      "display_name": "축구 승부예측"
+    },
+    "시간표_관리": {
+      "status": "live",
+      "live": "https://catomo88.github.io/time_table/",
+      "display_name": "아이들 시간표"
+    },
+    "Play_Archive": {
+      "status": "live",
+      "live": "https://catomo88.github.io/Play_Archive/",
+      "display_name": "게임 공략 아카이브"
+    },
+    "원준이네 아쿠아스케이핑": {
+      "status": "live",
+      "live": "https://catomo88.github.io/Aquarium/",
+      "display_name": "원준이네 어항"
+    },
+    "Vision_FB_SW": {
+      "display_name": "비전 검사 피드백"
+    },
+    "결함진단피드백_SW": {
+      "display_name": "결함 진단 피드백"
+    },
+    "image-classifier": {
+      "display_name": "이미지 분류기"
+    }
   },
   "manual": [
     {
@@ -30,7 +147,10 @@
       "display_name": "아이 교육 자료실",
       "tool": "Cowork",
       "summary": "아이 학습을 돕는 교육 자료를 모아 보는 웹 자료실.",
-      "tags": ["Web", "HTML"],
+      "tags": [
+        "Web",
+        "HTML"
+      ],
       "status": "live",
       "repo": "https://github.com/Catomo88/education",
       "live": "https://catomo88.github.io/education/"

@@ -3,548 +3,403 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>build log — 원준 아빠의 프로젝트 콘솔</title>
+<title>원준이 아빠의 프로젝트</title>
+<meta name="description" content="가족과 일을 위해 직접 만든 것들" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<script>
+  /* apply the saved theme before first paint (no flash) */
+  try { var t = localStorage.getItem('theme'); if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+</script>
 <style>
 /* ============================================================
-   TOKENS — single source of truth (concept: build log / blueprint console)
-   unchanged from the approved moodboard
+   THEME A — "맑은 정돈" (Clear Order)
+   inset-grouped list · ink + cobalt · status as tinted words
+   cobalt = things you press, green/violet = status, ink/grey = everything else
    ============================================================ */
 :root {
-  /* type */
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  --font-sans: "IBM Plex Sans KR", Pretendard, system-ui, sans-serif;
-  /* scale 1.250 — Major Third */
-  --fs-12: 12px; --fs-15: 15px; --fs-16: 16px;
-  --fs-20: 20px; --fs-25: 25px; --fs-31: 31px; --fs-39: 39px;
-  /* spacing — 8px grid (4px micro) */
-  --s-4: 4px; --s-8: 8px; --s-12: 12px; --s-16: 16px;
-  --s-24: 24px; --s-32: 32px; --s-48: 48px;
-  /* form */
-  --radius: 6px;
-  --grid-step: 24px;
-  --border-w: 1px;
-  /* layout (derived) */
-  --row-h: 48px;              /* one log line = one touch target */
+  color-scheme: light;
+  --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  /* type scale 13 · 15 · 17 · 20 · 26 (12 only for status words) */
+  --fs-12: 12px; --fs-13: 13px; --fs-14: 14px; --fs-15: 15px; --fs-16: 16px;
+  --fs-17: 17px; --fs-20: 20px; --fs-26: 26px;
+  /* spacing: 4px base */
+  --s-4: 4px; --s-8: 8px; --s-12: 12px; --s-16: 16px; --s-20: 20px; --s-24: 24px; --s-32: 32px;
+  /* shape — no shadows anywhere */
+  --r-panel: 16px; --r-field: 12px; --r-pill: 999px; --r-tag: 6px;
+  --row-h: 56px;
   --wrap: 1120px;
 
-  /* DARK */
-  --bg: #0E1116;
-  --grid: #1B212B;
-  --surface: #151A21;
-  --surface-2: #19202A;
-  --border: #232A33;
-  --text: #E6E9EE;
-  --text-2: #9AA4B2;
-  --text-dim: #5C6673;
-  --accent: #E8A33D;          /* amber — interaction / current position only */
-  --accent-soft: rgba(232,163,61,0.12);
-  --inset-hi: rgba(255,255,255,0.03);
-  --card-shadow: none;
-
-  /* status signals (project state, never interaction) */
-  --st-wip: #6FA8DC;
-  --st-live: #5FB37A;
-  --st-paused: #7E8794;
+  /* LIGHT */
+  --bg: #F2F4F7;
+  --surface: #FFFFFF;
+  --surface-2: #F7F8FA;
+  --line: #E6E8EC;
+  --text: #141A23;
+  --text-2: #4E5968;
+  --text-3: #8B95A1;
+  --accent: #1F57E0;
+  --accent-soft: #EAF0FF;
+  --on-accent: #FFFFFF;
+  --live: #0C8A4F;   --live-bg: #E3F5EA;
+  --wip: #6A45D9;    --wip-bg: #F0EBFF;
+  --paused: #6B7684; --paused-bg: #EEF0F3;
 }
-
-html[data-theme="light"] {
-  --bg: #F4F2EC;
-  --grid: #E2DFD5;
-  --surface: #FBFAF6;
-  --surface-2: #F1EFE6;
-  --border: #D9D5C8;
-  --text: #24272B;
-  --text-2: #5B6068;
-  --text-dim: #8A8F97;
-  --accent: #B5731A;
-  --accent-soft: rgba(181,115,26,0.10);
-  --inset-hi: rgba(0,0,0,0.0);
-  --card-shadow: 0 1px 0 rgba(0,0,0,0.04);
-  --st-wip: #3F7FB8;
-  --st-live: #4A9663;
-  --st-paused: #7E8794;
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #101318;
+  --surface: #1A1E25;
+  --surface-2: #22272F;
+  --line: #2A3039;
+  --text: #F1F3F6;
+  --text-2: #B0B8C1;
+  --text-3: #7B8592;
+  --accent: #5B8CFF;
+  --accent-soft: rgba(91,140,255,.16);
+  --on-accent: #0B1530;
+  --live: #3DD68C;   --live-bg: rgba(61,214,140,.14);
+  --wip: #A88BFF;    --wip-bg: rgba(168,139,255,.16);
+  --paused: #9AA3AE; --paused-bg: rgba(154,163,174,.14);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 html, body { background: var(--bg); }
-
 body {
-  font-family: var(--font-sans);
-  font-size: var(--fs-16);
-  line-height: 1.6;
+  font-family: var(--font); font-size: var(--fs-15); line-height: 1.45;
   color: var(--text);
-  /* SIGNATURE 1: blueprint micro-grid background */
-  background-color: var(--bg);
-  background-image:
-    linear-gradient(to right, var(--grid) var(--border-w), transparent var(--border-w)),
-    linear-gradient(to bottom, var(--grid) var(--border-w), transparent var(--border-w));
-  background-size: var(--grid-step) var(--grid-step);
-  -webkit-font-smoothing: antialiased;
-  /* Korean: break between words, never inside them */
   word-break: keep-all; overflow-wrap: anywhere;
-  transition: background-color 180ms ease, color 180ms ease;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum" 1;            /* numbers line up */
   min-height: 100vh;
+  transition: background-color .2s ease, color .2s ease;
 }
-
-.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--s-16); }
-.sr-only {
-  position: absolute; width: 1px; height: 1px; overflow: hidden;
-  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-}
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--s-20); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+svg { display: block; }
 
 /* ============================================================
-   HEADER — scrolls away (only the command bar stays)
+   HEADER — title, theme button, 3-cell summary (scrolls away)
    ============================================================ */
-.header { border-bottom: var(--border-w) solid var(--border); background: var(--bg); }
-.header__inner {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--s-12);
-  padding: var(--s-8) var(--s-16) var(--s-4);
-  max-width: var(--wrap); margin: 0 auto;
+.header { padding-top: var(--s-24); padding-bottom: var(--s-16); }
+.header__top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s-12); }
+.title { font-size: var(--fs-26); font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; }
+.subtitle { font-size: var(--fs-15); color: var(--text-2); margin-top: var(--s-4); }
+.theme-btn {
+  flex: none; width: 44px; height: 44px; margin: -6px -10px 0 0; border-radius: var(--r-pill);
+  display: grid; place-items: center; color: var(--text-2);
+  transition: background-color .2s ease, color .2s ease;
 }
-.brand { min-width: 0; }
-.brand__line {
-  font-family: var(--font-mono); font-size: var(--fs-12);
-  letter-spacing: 0.04em; color: var(--text-dim); text-transform: lowercase;
-}
-.brand__title {
-  font-family: var(--font-mono); font-weight: 600;
-  font-size: clamp(var(--fs-25), 6vw, var(--fs-39));
-  color: var(--text); line-height: 1.1; letter-spacing: -0.01em;
-  white-space: nowrap;
-}
-/* SIGNATURE 3: blinking amber caret */
-.caret {
-  display: inline-block; color: var(--accent); font-weight: 400; margin-left: 2px;
-  animation: blink 1s steps(1) infinite;
-}
-@keyframes blink { 50% { opacity: 0; } }
+.theme-btn:hover { background: var(--surface); color: var(--text); }
+.theme-btn svg { width: 22px; height: 22px; }
+.theme-btn .i-sun { display: none; }
+html[data-theme="dark"] .theme-btn .i-sun { display: block; }
+html[data-theme="dark"] .theme-btn .i-moon { display: none; }
 
-.theme-toggle {
-  flex: none;
-  font-family: var(--font-mono); font-size: var(--fs-12);
-  color: var(--text-2); background: var(--surface);
-  border: var(--border-w) solid var(--border); border-radius: var(--radius);
-  padding: var(--s-8) var(--s-12); min-height: 44px;
-  cursor: pointer; letter-spacing: 0.04em;
-  transition: border-color 180ms ease, color 180ms ease;
+/* SIGNATURE 3: summary strip — tabular numbers in three cells */
+.summary {
+  margin-top: var(--s-20);
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  background: var(--surface); border-radius: var(--r-panel);
 }
-.theme-toggle:hover { border-color: var(--accent); color: var(--text); }
-
-/* stats row — left-aligned mono numerals, one line */
-.stats {
-  display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-12);
-  padding: 0 var(--s-16) var(--s-8);
-  line-height: 1.3;
-  max-width: var(--wrap); margin: 0 auto;
-}
-.stat { display: flex; align-items: baseline; gap: var(--s-4); }
-.stat__num {
-  font-family: var(--font-mono); font-weight: 500;
-  font-size: var(--fs-15); color: var(--text-2);
-}
-.stat__num--live { color: var(--st-live); }
-.stat__num--wip { color: var(--st-wip); }
-.stat__label {
-  font-family: var(--font-mono); font-size: var(--fs-12);
-  color: var(--text-dim); letter-spacing: 0.04em; text-transform: lowercase;
-}
+.sum { padding: var(--s-12) var(--s-16); min-width: 0; }
+.sum + .sum { border-left: 1px solid var(--line); }
+.sum__n { font-size: var(--fs-20); font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; }
+.sum__l { font-size: var(--fs-13); color: var(--text-3); font-weight: 500; }
+.sum--live .sum__n { color: var(--live); }
+.sum--wip .sum__n { color: var(--wip); }
 
 /* ============================================================
-   COMMAND BAR — sticky: grep + filter tokens (the "find" layer)
+   FIND BAR — sticky: search + filter chips
    ============================================================ */
-.cmdbar {
-  position: sticky; top: 0; z-index: 20;
-  background: var(--bg);
-  border-bottom: var(--border-w) solid var(--border);
-}
-.cmdbar__inner {
-  max-width: var(--wrap); margin: 0 auto;
-  padding: var(--s-8) var(--s-16) 0;
-  display: flex; flex-direction: column; gap: 0;
-}
-.grep {
+.findbar { position: sticky; top: 0; z-index: 20; background: var(--bg); transition: background-color .2s ease; }
+.findbar__inner { max-width: var(--wrap); margin: 0 auto; padding: var(--s-8) var(--s-20) 0; }
+.search {
   display: flex; align-items: center; gap: var(--s-8);
-  height: 44px;
-  background: var(--surface);
-  border: var(--border-w) solid var(--border); border-radius: var(--radius);
-  padding: 0 var(--s-4) 0 var(--s-12);
-  transition: border-color 150ms ease;
+  height: 46px; padding: 0 0 0 var(--s-12);
+  background: var(--surface); border-radius: var(--r-field);
+  border: 1.5px solid transparent;
+  transition: border-color .15s ease;
 }
-.grep:focus-within { border-color: var(--accent); }
-.grep__prompt {
-  font-family: var(--font-mono); font-size: var(--fs-12);
-  color: var(--accent); letter-spacing: 0.02em; flex: none;
+.search:focus-within { border-color: var(--accent); }
+.search__icon { width: 20px; height: 20px; color: var(--text-3); flex: none; }
+.search input {
+  flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent;
+  font: inherit; font-size: var(--fs-16); color: var(--text);   /* 16px: no iOS zoom */
 }
-.grep__input {
-  flex: 1; min-width: 0; height: 100%;
-  font-family: var(--font-sans); font-size: var(--fs-16);  /* 16px: no iOS zoom */
-  color: var(--text); background: transparent; border: 0; outline: none;
+.search input::placeholder { color: var(--text-3); }
+.search input::-webkit-search-cancel-button { display: none; }
+.search__clear {
+  flex: none; width: 44px; height: 44px; display: grid; place-items: center;
+  color: var(--text-3); border-radius: var(--r-field);
 }
-.grep__input::placeholder { color: var(--text-dim); }
-.grep__input::-webkit-search-cancel-button { display: none; }
-.grep__clear {
-  flex: none; width: 44px; height: 44px; margin: -1px 0;
-  font-family: var(--font-mono); font-size: var(--fs-15);
-  color: var(--text-dim); background: transparent; border: 0; border-radius: var(--radius);
-  cursor: pointer;
-}
-.grep__clear:hover { color: var(--accent); }
-.grep__clear[hidden] { display: none; }
+.search__clear:hover { color: var(--text); }
+.search__clear svg { width: 18px; height: 18px; }
+.search__clear[hidden] { display: none; }
 
-/* SIGNATURE 4: filter chips = command tokens, one horizontally scrollable line */
-.filters {
-  display: flex; gap: var(--s-8); align-items: stretch;
-  overflow-x: auto; scrollbar-width: none;
-  margin: 0 calc(-1 * var(--s-16)); padding: 0 var(--s-16);
+.chips {
+  display: flex; gap: var(--s-8); overflow-x: auto; scrollbar-width: none;
+  margin: 0 calc(-1 * var(--s-20)); padding: var(--s-4) var(--s-20) var(--s-8);
   -webkit-overflow-scrolling: touch;
 }
-.filters::-webkit-scrollbar { display: none; }
-.filter-group { display: flex; gap: var(--s-8); flex: none; }
-.filter-sep { width: var(--border-w); background: var(--border); flex: none; margin: var(--s-12) 0; }
-.chip {
-  flex: none; height: 44px; padding: 0;      /* 44px hit box */
-  background: none; border: 0; cursor: pointer; color: inherit;
-  display: flex; align-items: center;
-  font-family: var(--font-mono); font-size: var(--fs-12);
-}
+.chips::-webkit-scrollbar { display: none; }
+.chip-group { display: flex; gap: var(--s-8); flex: none; }
+.chip { flex: none; height: 44px; display: flex; align-items: center; }   /* 44px hit box */
 .chip:focus-visible { outline: none; }
-.chip__face {                                /* 32px visible token */
-  display: flex; align-items: center; height: 32px;
-  color: var(--text-2); background: var(--surface);
-  border: var(--border-w) solid var(--border); border-radius: var(--radius);
-  padding: 0 var(--s-12);
-  letter-spacing: 0.02em; white-space: nowrap;
-  transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
-}
 .chip:focus-visible .chip__face { outline: 2px solid var(--accent); outline-offset: 2px; }
-.chip:hover .chip__face { border-color: var(--accent); color: var(--text); }
-.chip__face::before { content: "[ "; color: var(--text-dim); white-space: pre; }
-.chip__face::after  { content: " ]"; color: var(--text-dim); white-space: pre; }
-.chip[aria-pressed="true"] .chip__face { color: var(--text); background: var(--accent-soft); border-color: var(--accent); }
-.chip[aria-pressed="true"] .chip__face::before { content: "[ \2022 "; color: var(--accent); }
-.chip__n { color: var(--text-dim); margin-left: var(--s-4); }
+.chip__face {
+  display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 var(--s-12);
+  border-radius: var(--r-pill); background: var(--surface);
+  font-size: var(--fs-14); font-weight: 600; color: var(--text-2); white-space: nowrap;
+  transition: background-color .15s ease, color .15s ease;
+}
+.chip:hover .chip__face { color: var(--text); }
+.chip__n { font-weight: 600; color: var(--text-3); }
+/* selected = ink inversion, so cobalt stays reserved for "열기" */
+.chip[aria-pressed="true"] .chip__face { background: var(--text); color: var(--surface); }
+.chip[aria-pressed="true"] .chip__n { color: inherit; opacity: .6; }
+.chip-sep { flex: none; width: 1px; margin: 16px 2px; background: var(--line); }
 
 /* ============================================================
-   CONSOLE LABEL — `$ ls` line with sort + live result count
+   LIST HEAD — count + sort
    ============================================================ */
-.console-label {
-  display: flex; justify-content: space-between; align-items: center; gap: var(--s-8);
-  min-height: 44px; margin-top: var(--s-4);
-  font-family: var(--font-mono); font-size: var(--fs-12);
-  color: var(--text-dim); letter-spacing: 0.04em;
+.list-head {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-8);
+  min-height: 44px; font-size: var(--fs-13); color: var(--text-3); font-weight: 500;
 }
-.count { color: var(--text-2); white-space: nowrap; }
-/* sort: the native select is invisible and stretched over a 44px hit box */
-.sort { position: relative; display: inline-flex; align-items: center; height: 44px; }
-.sort__face {
-  color: var(--accent);
-  border-bottom: var(--border-w) dashed var(--border);
-  padding: 0 14px 1px 2px; line-height: 1.3;
-  background-image: linear-gradient(45deg, transparent 50%, var(--accent) 50%), linear-gradient(135deg, var(--accent) 50%, transparent 50%);
-  background-position: right 5px center, right 1px center;
-  background-size: 4px 4px, 4px 4px; background-repeat: no-repeat;
-}
-.sort-select {
-  position: absolute; top: 0; left: -8px; width: calc(100% + 16px); height: 100%;
-  opacity: 0; cursor: pointer; border: 0;
-  font-family: var(--font-mono); font-size: var(--fs-16);
+.sort { position: relative; display: inline-flex; align-items: center; gap: 2px; height: 44px; color: var(--text-2); font-weight: 600; font-size: var(--fs-13); }
+.sort svg { width: 14px; height: 14px; }
+.sort select {
+  position: absolute; inset: 0 -8px; width: calc(100% + 16px); height: 100%;
+  opacity: 0; cursor: pointer; border: 0; font-size: var(--fs-16);
   appearance: none; -webkit-appearance: none;
 }
-.sort:hover .sort__face { border-bottom-color: var(--accent); }
-.sort:focus-within .sort__face { outline: 2px solid var(--accent); outline-offset: 2px; }
-.sort-select option { color: var(--text); background: var(--surface); }
+.sort:hover { color: var(--text); }
+.sort:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-tag); }
+.sort select option { color: var(--text); background: var(--surface); }
 
 /* ============================================================
-   PROJECT LOG — mobile: one framed log, one line per build
+   LIST — SIGNATURE 1: one inset-grouped panel, hairlines start at the title
    ============================================================ */
-.log-list {
-  position: relative;
-  list-style: none;
-  background: var(--surface);
-  border: var(--border-w) solid var(--border); border-radius: var(--radius);
-  box-shadow: var(--card-shadow), inset 0 var(--border-w) 0 var(--inset-hi);
-}
-/* SIGNATURE: crop marks on the log frame */
-.log-list::before, .log-list::after {
-  content: ""; position: absolute; width: 8px; height: 8px;
-  border-color: var(--text-dim); opacity: 0.55; pointer-events: none;
-}
-.log-list::before { top: -5px; left: -5px; border-top: var(--border-w) solid; border-left: var(--border-w) solid; }
-.log-list::after  { bottom: -5px; right: -5px; border-bottom: var(--border-w) solid; border-right: var(--border-w) solid; }
-
-.item { position: relative; border-top: var(--border-w) solid var(--border); }
-.item:first-child { border-top: 0; }
+.list { list-style: none; background: var(--surface); border-radius: var(--r-panel); overflow: hidden; }
+.item { position: relative; transition: background-color .2s ease; }
 .item[hidden] { display: none; }
-
-.item__row { display: flex; align-items: stretch; min-height: var(--row-h); }
-
-.item__toggle {
-  flex: 1; min-width: 0;
-  display: flex; align-items: center; gap: var(--s-12);
-  padding: 0 var(--s-8) 0 var(--s-12);
-  background: transparent; border: 0; color: inherit; font: inherit; text-align: left;
-  cursor: pointer;
+.item.has-line::before {
+  content: ""; position: absolute; top: 0; left: var(--s-16); right: 0;
+  height: 1px; background: var(--line);
 }
-.item__toggle:focus-visible { outline-offset: -2px; }
+.row { display: flex; align-items: center; min-height: var(--row-h); }
+.toggle {
+  flex: 1; min-width: 0; min-height: var(--row-h);
+  display: flex; align-items: center; gap: var(--s-4);
+  padding: var(--s-8) 0 var(--s-8) var(--s-16); text-align: left;
+}
+.toggle:focus-visible { outline-offset: -2px; }
 
-.dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }     /* only dots are round */
-.dot--live   { background: var(--st-live); box-shadow: 0 0 0 3px color-mix(in srgb, var(--st-live) 20%, transparent); }
-.dot--wip    { background: var(--st-wip); }
-.dot--paused { background: transparent; border: var(--border-w) solid var(--st-paused); }
-
-.item__title {
-  flex: 1; min-width: 0; text-wrap: pretty;
-  font-family: var(--font-sans); font-weight: 500; font-size: var(--fs-16);
-  line-height: 1.3; color: var(--text);
+/* name: display_name leads; folder name sits beside it, or drops to the next line when there's no room */
+.names { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 6px; row-gap: 0; }
+.name {
+  flex: none; max-width: 100%;
+  font-size: var(--fs-17); font-weight: 600; letter-spacing: -0.01em; line-height: 1.3;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.item[data-status="paused"] .item__title { color: var(--text-2); }
-.item__title mark { background: var(--accent-soft); color: inherit; box-shadow: inset 0 -1px 0 var(--accent); }
-
-.item__when {
-  flex: none; min-width: 32px; text-align: right;
-  font-family: var(--font-mono); font-size: var(--fs-12);
-  color: var(--text-dim); letter-spacing: 0.01em;
+.folder {
+  flex: 0 0 auto; max-width: 100%;
+  font-size: var(--fs-13); font-weight: 500; color: var(--text-2); line-height: 1.35;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-/* expand marker: + / − in mono, rotates meaning not shape */
-.item__mark {
-  flex: none; width: 12px; text-align: center;
-  align-self: stretch; display: flex; align-items: center; justify-content: center;
-  padding-left: var(--s-12); border-left: var(--border-w) dashed var(--border);
-  box-sizing: content-box;
-  font-family: var(--font-mono); font-size: var(--fs-15); color: var(--text-dim);
-}
-.item__mark::before { content: "+"; }
-.item__toggle[aria-expanded="true"] .item__mark::before { content: "\2212"; color: var(--accent); }
+.item[data-status="paused"] .name { color: var(--text-2); }
+.name mark { background: var(--accent-soft); color: inherit; border-radius: 3px; }
 
-/* live: one tap from the list */
-.item__open {
-  flex: none; display: flex; align-items: center; gap: var(--s-4);
-  padding: 0 var(--s-12);
-  font-family: var(--font-mono); font-size: var(--fs-12); letter-spacing: 0.02em;
-  color: var(--st-live); text-decoration: none;
-  border-left: var(--border-w) solid var(--border);
-  transition: color 150ms ease, background 150ms ease;
+/* SIGNATURE 2: status as a word on a tinted ground */
+.st {
+  flex: none; font-size: var(--fs-12); font-weight: 600; line-height: 1;
+  padding: 5px 7px; border-radius: var(--r-tag); white-space: nowrap;
 }
-.item__open:hover { color: var(--accent); background: var(--accent-soft); }
-.item__open:focus-visible { outline-offset: -2px; }
-/* reserve the same column for non-live rows so titles stay aligned */
-.item__open--none { width: 68px; flex: none; }
+.st--live   { color: var(--live);   background: var(--live-bg); }
+.st--wip    { color: var(--wip);    background: var(--wip-bg); }
+.st--paused { color: var(--paused); background: var(--paused-bg); }
 
-/* current position: amber edge on the open row */
+.chev { flex: none; width: 12px; height: 12px; margin-right: var(--s-8); color: var(--text-3); transition: transform .2s ease, color .2s ease; }
+.toggle[aria-expanded="true"] .chev { transform: rotate(90deg); color: var(--text); }
+
+/* live: one tap from the list — the only cobalt in the row */
+/* row end slot: exactly one thing, "열기" (live) or the status word (others); fixed width so edges line up */
+.slot { flex: none; width: 68px; margin-right: var(--s-12); display: flex; align-items: center; justify-content: flex-end; }
+.open {
+  flex: none;
+  height: 32px; padding: 0 var(--s-12); border-radius: var(--r-pill);
+  display: flex; align-items: center;
+  font-size: var(--fs-14); font-weight: 700; color: var(--accent); background: var(--accent-soft);
+  text-decoration: none; position: relative;
+  transition: background-color .15s ease, color .15s ease;
+}
+.open::after { content: ""; position: absolute; inset: -6px -4px; }   /* 44px hit area */
+.open:hover { background: var(--accent); color: var(--on-accent); }
+
+/* expanded row */
 .item.is-open { background: var(--surface-2); }
-.item.is-open::before {
-  content: ""; position: absolute; left: -1px; top: -1px; bottom: -1px;
-  width: 2px; background: var(--accent);
-}
-
-/* detail — the log entry body, indented like a tree branch */
-.item__detail {
-  padding: 0 var(--s-12) var(--s-12) calc(var(--s-12) + 8px + var(--s-12));
-  display: flex; flex-direction: column; gap: var(--s-8);
-}
-.item__detail[hidden] { display: none; }
-.item__desc { font-size: var(--fs-15); color: var(--text-2); line-height: 1.6; text-wrap: pretty; }
-
-.tags { display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-8); }
+.item.is-open::before, .item.is-open + .item::before { left: 0; }   /* full-width lines frame the open row */
+.toggle .slot { margin-left: -4px; }   /* cancel the flex gap so chevrons line up with live rows */
+.detail { padding: 0 var(--s-16) var(--s-16); display: flex; flex-direction: column; gap: var(--s-12); }
+.detail[hidden] { display: none; }
+.desc { font-size: var(--fs-15); color: var(--text-2); line-height: 1.6; text-wrap: pretty; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .tag {
-  font-family: var(--font-mono); font-size: var(--fs-12);
-  color: var(--text-2); background: var(--surface-2);
-  border: var(--border-w) solid var(--border); border-radius: var(--radius);
-  padding: 0 var(--s-8); letter-spacing: 0.02em;
+  font-size: var(--fs-13); font-weight: 500; color: var(--text-2);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-tag);
+  padding: 2px 8px;
 }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; font-size: var(--fs-13); }
+.facts dt { color: var(--text-3); }
+.facts dd { color: var(--text); font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
+.actions { display: flex; }
+/* code link: quiet text, 44px hit box without moving the text */
+.code-link {
+  display: inline-block; font-size: var(--fs-14); font-weight: 600; color: var(--text-2);
+  line-height: 20px; padding: 12px 8px; margin: -12px -8px -8px;
+  text-decoration: underline transparent; text-underline-offset: 3px;
+  transition: color .15s ease, text-decoration-color .15s ease;
+}
+.code-link:hover { color: var(--text); text-decoration-color: currentColor; }
 
-/* SIGNATURE 2: mono log line */
-.item__foot {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-  gap: var(--s-4) var(--s-12);
-  border-top: var(--border-w) dashed var(--border);
-  padding-top: var(--s-8);
-}
-.log { font-family: var(--font-mono); font-size: var(--fs-12); color: var(--text-dim); letter-spacing: 0.01em; }
-.log__st { display: inline-flex; align-items: center; gap: 6px; }
-.log__st .dot { width: 6px; height: 6px; box-shadow: none; }
-.log__st--live { color: var(--st-live); }
-.log__st--wip { color: var(--st-wip); }
-.log__st--paused { color: var(--st-paused); }
-.links { display: flex; gap: var(--s-24); padding-right: var(--s-12); }
-.link {
-  font-family: var(--font-mono); font-size: var(--fs-12);
-  color: var(--text-2); letter-spacing: 0.02em;
-  display: inline-block; line-height: 18px;
-  padding: 13px 12px; margin: -13px -12px;   /* 44px hit box, text stays put */
-  text-decoration: underline dotted transparent; text-underline-offset: 3px;
-  transition: color 150ms ease, border-color 150ms ease;
-}
-.link:hover { color: var(--accent); text-decoration-color: var(--accent); }
-
-.empty {
-  font-family: var(--font-mono); font-size: var(--fs-12); color: var(--text-dim);
-  padding: var(--s-16) var(--s-12);
-}
+.empty { font-size: var(--fs-15); color: var(--text-2); padding: var(--s-24) var(--s-16); background: var(--surface); border-radius: var(--r-panel); line-height: 1.6; }
 .empty[hidden] { display: none; }
 
-footer {
-  font-family: var(--font-mono); font-size: var(--fs-12);
-  color: var(--text-dim); letter-spacing: 0.02em;
-  padding: var(--s-24) 0 var(--s-32);
-}
+.foot { font-size: var(--fs-13); color: var(--text-3); padding: var(--s-24) var(--s-4) var(--s-32); }
 
 /* ============================================================
-   DESKTOP (≥ 760px) — the log opens up into tiles again.
-   Same markup; every entry is shown expanded.
+   DESKTOP (≥ 760px) — the panel opens into 2–3 columns of tiles.
+   Same markup; every entry is shown expanded. Still no shadows.
    ============================================================ */
 @media (min-width: 760px) {
-  .header__inner, .stats, .cmdbar__inner { padding-left: var(--s-24); padding-right: var(--s-24); }
-  .wrap { padding: 0 var(--s-24); }
-  .stats { gap: var(--s-16) var(--s-24); }
-  .stat__num { font-size: var(--fs-20); }
-  .cmdbar__inner { flex-direction: row; align-items: center; gap: var(--s-16); }
-  .grep { flex: 0 1 320px; }
-  .filters { margin: 0; padding: 0; flex: 1; flex-wrap: wrap; overflow: visible; }
+  .header { padding-top: var(--s-32); }
+  .summary { max-width: 480px; }
+  .findbar__inner { display: flex; align-items: center; gap: var(--s-16); padding-top: var(--s-12); padding-bottom: var(--s-4); }
+  .search { flex: 0 1 340px; }
+  .chips { margin: 0; padding: 0; flex: 1; flex-wrap: wrap; overflow: visible; }
 
-  .log-list {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-16);
-    background: transparent; border: 0; box-shadow: none;
-  }
-  .log-list::before, .log-list::after { display: none; }
-  .item {
-    display: flex; flex-direction: column;
-    background: var(--surface);
-    border: var(--border-w) solid var(--border); border-radius: var(--radius);
-    box-shadow: var(--card-shadow), inset 0 var(--border-w) 0 var(--inset-hi);
-    transition: border-color 180ms ease, background 180ms ease;
-  }
-  .item:first-child { border-top: var(--border-w) solid var(--border); }
-  .item:hover { border-color: var(--accent); background: var(--surface-2); }
-  /* crop marks per tile on desktop */
-  .item::before, .item::after {
-    content: ""; position: absolute; width: 8px; height: 8px;
-    border-color: var(--text-dim); opacity: 0.55; pointer-events: none;
-    transition: border-color 180ms ease, opacity 180ms ease;
-  }
-  .item::before { top: 6px; left: 6px; border-top: var(--border-w) solid; border-left: var(--border-w) solid; }
-  .item::after  { bottom: 6px; right: 6px; border-bottom: var(--border-w) solid; border-right: var(--border-w) solid; }
-  .item:hover::before, .item:hover::after { border-color: var(--accent); opacity: 1; }
-  .item.is-open { background: var(--surface); }
-
-  .item__row { min-height: 56px; border-bottom: var(--border-w) solid var(--border); }
-  .item__toggle { cursor: default; padding-left: var(--s-16); }
-  .item__mark { display: none; }
-  .item__title { font-size: var(--fs-20); white-space: normal; }
-  .item__open { border-left: 0; padding: 0 var(--s-16); }
-  .item__open--none { display: none; }
-  .item__detail, .item__detail[hidden] {
-    display: flex; flex: 1;
-    padding: var(--s-12) var(--s-16) var(--s-16);
-  }
-  .item__foot { margin-top: auto; }
+  /* still ONE panel: cells are divided by 1px hairlines, not separate cards */
+  .list { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .item { display: flex; flex-direction: column; box-shadow: 1px 0 0 var(--line), 0 1px 0 var(--line); }
+  .item.has-line::before { display: none; }
+  .item.is-open { background: transparent; }
+  .row { min-height: 60px; align-items: flex-start; }
+  .toggle { cursor: default; padding: var(--s-16) 0 var(--s-8) var(--s-20); align-items: flex-start; }
+  .name { white-space: normal; }
+  .chev { display: none; }
+  .slot { margin: 11px var(--s-16) 0 var(--s-8); }   /* "열기" pill centred on the first title line */
+  .toggle .slot { margin-top: 0; margin-left: var(--s-8); }                 /* status word already sits inside the padded toggle */
+  .detail, .detail[hidden] { display: flex; flex: 1; padding: 0 var(--s-20) var(--s-20); }
+  .actions { margin-top: auto; padding-top: var(--s-4); }
 }
 @media (min-width: 1040px) {
-  .log-list { grid-template-columns: repeat(3, 1fr); }
+  .list { grid-template-columns: repeat(3, 1fr); }
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .caret { animation: none; }
   * { transition: none !important; }
 }
 </style>
 </head>
 <body>
 
-<header class="header">
-  <div class="header__inner">
-    <div class="brand">
-      <div class="brand__line">~/papa-junkyu/builds</div>
-      <h1 class="brand__title">build log<span class="caret" aria-hidden="true">▌</span></h1>
+<header class="header wrap">
+  <div class="header__top">
+    <div>
+      <h1 class="title">원준이 아빠의 프로젝트</h1>
+      <p class="subtitle">가족과 일을 위해 직접 만든 것들</p>
     </div>
-    <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">// dark</button>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="어두운 화면으로 보기">
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>
+    </button>
   </div>
-  <div class="stats">
-    <div class="stat"><span class="stat__num" id="statTotal">–</span><span class="stat__label">projects</span></div>
-    <div class="stat"><span class="stat__num stat__num--live" id="statLive">–</span><span class="stat__label">live</span></div>
-    <div class="stat"><span class="stat__num stat__num--wip" id="statWip">–</span><span class="stat__label">in-progress</span></div>
-    <div class="stat"><span class="stat__num" id="statUpdated">–</span><span class="stat__label">upd</span></div>
+  <div class="summary">
+    <div class="sum"><div class="sum__n" id="statTotal">–</div><div class="sum__l">전체</div></div>
+    <div class="sum sum--live"><div class="sum__n" id="statLive">–</div><div class="sum__l">라이브</div></div>
+    <div class="sum sum--wip"><div class="sum__n" id="statWip">–</div><div class="sum__l">만드는 중</div></div>
   </div>
 </header>
 
-<div class="cmdbar">
-  <div class="cmdbar__inner">
-    <label class="grep" for="q">
-      <span class="grep__prompt" aria-hidden="true">$ grep</span>
+<div class="findbar">
+  <div class="findbar__inner">
+    <label class="search" for="q">
+      <svg class="search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <span class="sr-only">프로젝트 검색</span>
-      <input class="grep__input" id="q" type="search" placeholder="이름 · 태그 · 설명" autocomplete="off" spellcheck="false" enterkeyhint="search" />
-      <button class="grep__clear" id="qClear" type="button" aria-label="검색어 지우기" hidden>×</button>
+      <input id="q" type="search" placeholder="프로젝트 찾기" autocomplete="off" spellcheck="false" enterkeyhint="search" />
+      <button class="search__clear" id="qClear" type="button" aria-label="검색어 지우기" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
     </label>
-    <nav class="filters" aria-label="필터">
-      <div class="filter-group" role="group" aria-label="상태">
-        <button class="chip" type="button" data-kind="all" aria-pressed="true"><span class="chip__face">all</span></button>
-        <button class="chip" type="button" data-kind="status" data-value="live" aria-pressed="false"><span class="chip__face">live<span class="chip__n" data-count="live"></span></span></button>
-        <button class="chip" type="button" data-kind="status" data-value="wip" aria-pressed="false"><span class="chip__face">in-progress<span class="chip__n" data-count="wip"></span></span></button>
-        <button class="chip" type="button" data-kind="status" data-value="paused" aria-pressed="false"><span class="chip__face">paused<span class="chip__n" data-count="paused"></span></span></button>
+    <nav class="chips" id="chips" aria-label="필터">
+      <div class="chip-group" role="group" aria-label="상태">
+        <button class="chip" type="button" data-kind="all" aria-pressed="true"><span class="chip__face">전체 <span class="chip__n" data-count="all"></span></span></button>
+        <button class="chip" type="button" data-kind="status" data-value="live" aria-pressed="false"><span class="chip__face">라이브 <span class="chip__n" data-count="live"></span></span></button>
+        <button class="chip" type="button" data-kind="status" data-value="wip" aria-pressed="false"><span class="chip__face">만드는 중 <span class="chip__n" data-count="wip"></span></span></button>
+        <button class="chip" type="button" data-kind="status" data-value="paused" aria-pressed="false"><span class="chip__face">쉬는 중 <span class="chip__n" data-count="paused"></span></span></button>
       </div>
-      <span class="filter-sep" aria-hidden="true"></span>
-      <div class="filter-group" role="group" aria-label="도구">
-        <button class="chip" type="button" data-kind="tool" data-value="claude code" aria-pressed="false"><span class="chip__face">claude code</span></button>
-        <button class="chip" type="button" data-kind="tool" data-value="cowork" aria-pressed="false"><span class="chip__face">cowork</span></button>
+      <i class="chip-sep" aria-hidden="true"></i>
+      <div class="chip-group" role="group" aria-label="만든 도구">
+        <button class="chip" type="button" data-kind="tool" data-value="claude code" aria-pressed="false"><span class="chip__face">Claude Code</span></button>
+        <button class="chip" type="button" data-kind="tool" data-value="cowork" aria-pressed="false"><span class="chip__face">Cowork</span></button>
       </div>
     </nav>
   </div>
 </div>
 
 <main class="wrap">
-  <div class="console-label">
-    <span>$ ls --sort=<span class="sort"><span class="sort__face" id="sortFace" aria-hidden="true">recent</span><select id="sortSelect" class="sort-select" aria-label="정렬 방식"><option value="recent">recent</option><option value="status">status</option><option value="name">name</option><option value="tool">tool</option></select></span></span>
-    <span class="count" id="count" aria-live="polite"></span>
+  <div class="list-head">
+    <span id="count" aria-live="polite"></span>
+    <span class="sort">
+      <span id="sortFace" aria-hidden="true">최근 수정순</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      <select id="sortSelect" aria-label="정렬 방식">
+        <option value="recent">최근 수정순</option>
+        <option value="status">상태순</option>
+        <option value="name">이름순</option>
+        <option value="tool">만든 도구순</option>
+      </select>
+    </span>
   </div>
 
-  <ul class="log-list" id="list" aria-label="프로젝트 목록"></ul>
+  <ul class="list" id="list" aria-label="프로젝트 목록"></ul>
   <p class="empty" id="empty" hidden></p>
 
-  <footer id="footer">// builds logged · auto-generated from projects.json · papa junkyu</footer>
+  <p class="foot" id="foot"></p>
 </main>
 
 <script>
 (function () {
-  // ── theme toggle — dark/light are peer themes; light by default ──
+  // ── theme: light by default, choice remembered ──
   var root = document.documentElement;
-  var btn = document.getElementById('themeToggle');
-  function syncToggle() {
+  var btn = document.getElementById('themeBtn');
+  function syncTheme() {
     var dark = root.getAttribute('data-theme') === 'dark';
-    btn.textContent = dark ? '// light' : '// dark';
-    btn.setAttribute('aria-pressed', dark ? 'false' : 'true');
+    btn.setAttribute('aria-label', dark ? '밝은 화면으로 보기' : '어두운 화면으로 보기');
   }
-  var saved = null;
-  try { saved = localStorage.getItem('theme'); } catch (e) {}
-  if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
   btn.addEventListener('click', function () {
     var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
     try { localStorage.setItem('theme', next); } catch (e) {}
-    syncToggle();
+    syncTheme();
   });
-  syncToggle();
+  syncTheme();
 
   // ── helpers ──
-  var STATUS_LABEL = { wip: 'in-progress', live: 'live', paused: 'paused' };
+  var STATUS_LABEL = { live: '라이브', wip: '만드는 중', paused: '쉬는 중' };
   var desktop = window.matchMedia('(min-width: 760px)');
+  var thisYear = new Date().getFullYear();
 
-  function relTime(iso) {
+  function fmtDate(iso) {
     if (!iso) return '';
-    var days = Math.floor((Date.now() - new Date(iso + 'T00:00:00Z').getTime()) / 86400000);
-    if (days <= 0) return 'today';
-    if (days < 7) return days + 'd';
-    if (days < 30) return Math.floor(days / 7) + 'w';
-    if (days < 365) return Math.floor(days / 30) + 'mo';
-    return Math.floor(days / 365) + 'y';
+    var p = iso.split('-');
+    if (p.length < 3) return iso;
+    var s = (+p[1]) + '월 ' + (+p[2]) + '일';
+    return (+p[0] !== thisYear ? p[0] + '년 ' : '') + s;
   }
+  function norm(s) { return (s || '').replace(/[\s_\-]+/g, '').toLowerCase(); }
   function el(tag, cls, text) {
     var n = document.createElement(tag);
     if (cls) n.className = cls;
@@ -557,66 +412,74 @@ footer {
     if (label) a.setAttribute('aria-label', label);
     return a;
   }
+  var CHEV = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
 
-  // ── one log entry ──
+  // ── one row ──
   function item(p, idx) {
     var name = p.display_name || p.name;
-    var status = p.status || 'wip';
+    var folder = p.display_name && p.name && norm(p.display_name) !== norm(p.name) ? p.name : '';
+    var status = STATUS_LABEL[p.status] ? p.status : 'wip';
+    var live = p.links && p.links.live;
+    var repo = p.links && p.links.repo;
+
     var li = el('li', 'item');
     li.dataset.tool = (p.tool || '').toLowerCase();
     li.dataset.status = status;
     li.dataset.key = p.name || name;
     li.dataset.hay = [p.name, p.display_name, p.summary, p.tool, (p.tags || []).join(' ')].join(' ').toLowerCase();
 
-    var row = el('div', 'item__row');
+    var row = el('div', 'row');
     var detailId = 'd-' + idx;
-    var t = el('button', 'item__toggle');
+    var t = el('button', 'toggle');
     t.type = 'button';
     t.setAttribute('aria-expanded', 'false');
     t.setAttribute('aria-controls', detailId);
-    var dot = el('span', 'dot dot--' + status);
-    t.appendChild(dot);
-    t.appendChild(el('span', 'sr-only', STATUS_LABEL[status] + ', '));
-    var title = el('span', 'item__title', name);
+    var names = el('span', 'names');
+    var title = el('span', 'name', name);
     title.dataset.text = name;
-    t.appendChild(title);
-    var when = el('span', 'item__when', relTime(p.last_commit));
-    when.setAttribute('aria-hidden', 'true');
-    t.appendChild(when);
-    var mk = el('span', 'item__mark'); mk.setAttribute('aria-hidden', 'true');
-    t.appendChild(mk);
-    row.appendChild(t);
-
-    if (p.links && p.links.live) {
-      row.appendChild(link('item__open', 'open↗', p.links.live, name + ' 열기 (새 탭)'));
+    names.appendChild(title);
+    if (folder) {
+      var f = el('span', 'folder', '(' + folder + ')');
+      f.title = folder;
+      names.appendChild(f);
+    }
+    t.appendChild(names);
+    t.insertAdjacentHTML('beforeend', CHEV);
+    // end slot: live rows show "열기" (it already means 라이브); others show their status word
+    if (live) {
+      t.appendChild(el('span', 'sr-only', ', ' + STATUS_LABEL[status]));
+      row.appendChild(t);
+      var slot = el('span', 'slot');
+      slot.appendChild(link('open', '열기', live, name + ' 열기 (새 탭)'));
+      row.appendChild(slot);
     } else {
-      var none = el('span', 'item__open--none'); none.setAttribute('aria-hidden', 'true');
-      row.appendChild(none);
+      var stSlot = el('span', 'slot');
+      stSlot.appendChild(el('span', 'st st--' + status, STATUS_LABEL[status]));
+      t.appendChild(stSlot);
+      row.appendChild(t);
     }
     li.appendChild(row);
 
-    var d = el('div', 'item__detail');
+    var d = el('div', 'detail');
     d.id = detailId;
     d.hidden = true;
-    d.appendChild(el('p', 'item__desc', p.summary || '요약 준비 중'));
+    d.appendChild(el('p', 'desc', p.summary || '설명을 준비하고 있어요.'));
     if (p.tags && p.tags.length) {
       var tags = el('div', 'tags');
       p.tags.forEach(function (x) { tags.appendChild(el('span', 'tag', x)); });
       d.appendChild(tags);
     }
-    var foot = el('div', 'item__foot');
-    var log = el('span', 'log');
-    var st = el('span', 'log__st log__st--' + status);
-    st.appendChild(el('span', 'dot dot--' + status));
-    st.appendChild(document.createTextNode(STATUS_LABEL[status]));
-    log.appendChild(st);
-    log.appendChild(document.createTextNode(' · ' + (p.tool || '').toLowerCase() +
-      ' · ' + (p.last_commit ? relTime(p.last_commit) + ' ago' : 'no commits')));
-    foot.appendChild(log);
-    var links = el('div', 'links');
-    if (p.links && p.links.repo) links.appendChild(link('link', 'git', p.links.repo, name + ' 저장소 (새 탭)'));
-    if (links.childNodes.length) foot.appendChild(links);
-    d.appendChild(foot);
+    var facts = el('dl', 'facts');
+    function fact(k, v) { facts.appendChild(el('dt', null, k)); facts.appendChild(el('dd', null, v)); }
+    if (p.tool) fact('만든 도구', p.tool);
+    fact('마지막 수정', p.last_commit ? fmtDate(p.last_commit) : '기록 없음');
+    d.appendChild(facts);
+    // "열기" lives in the row only; the detail just offers the code
+    if (repo) {
+      var acts = el('div', 'actions');
+      acts.appendChild(link('code-link', '코드 보기', repo, name + ' 코드 보기 (새 탭)'));
+      d.appendChild(acts);
+    }
     li.appendChild(d);
 
     t.addEventListener('click', function () {
@@ -629,11 +492,11 @@ footer {
     return li;
   }
 
-  // desktop: tiles are always expanded; the header is not a control
+  // desktop: tiles are always expanded; the row is not a control
   function syncMode() {
     document.querySelectorAll('.item').forEach(function (li) {
-      var t = li.querySelector('.item__toggle');
-      var d = li.querySelector('.item__detail');
+      var t = li.querySelector('.toggle');
+      var d = li.querySelector('.detail');
       if (desktop.matches) {
         t.removeAttribute('aria-expanded');
         t.setAttribute('tabindex', '-1');
@@ -643,6 +506,7 @@ footer {
         t.removeAttribute('tabindex');
         t.setAttribute('aria-expanded', 'false');
         d.hidden = true;
+        li.classList.remove('is-open');
       }
     });
   }
@@ -665,20 +529,24 @@ footer {
   }
 
   function apply() {
-    var shown = 0, total = 0;
+    var shown = 0, total = 0, first = true;
     document.querySelectorAll('.item').forEach(function (li) {
       total++;
       var ok = (!state.status || li.dataset.status === state.status) &&
                (!state.tool || li.dataset.tool === state.tool) &&
                (!state.q || li.dataset.hay.indexOf(state.q) !== -1);
       li.hidden = !ok;
-      if (ok) shown++;
-      highlight(li.querySelector('.item__title'), state.q);
+      li.classList.toggle('has-line', ok && !first);   // hairline only between visible rows
+      if (ok) { shown++; first = false; }
+      highlight(li.querySelector('.name'), state.q);
     });
-    document.getElementById('count').textContent = shown === total ? total + ' builds' : shown + ' / ' + total;
+    document.getElementById('count').textContent = shown === total ? total + '개 프로젝트' : total + '개 중 ' + shown + '개';
     var empty = document.getElementById('empty');
     empty.hidden = shown !== 0;
-    if (!shown) empty.textContent = '// no match' + (state.q ? " for '" + state.q + "'" : '') + ' — [ all ]로 초기화';
+    document.getElementById('list').hidden = shown === 0;
+    if (!shown) empty.textContent = state.q
+      ? '‘' + input.value.trim() + '’에 맞는 프로젝트가 없어요. 검색어를 지우거나 필터를 전체로 바꿔 보세요.'
+      : '찾는 프로젝트가 없어요. 필터를 전체로 바꿔 보세요.';
   }
 
   function setChips() {
@@ -690,11 +558,11 @@ footer {
     });
   }
 
-  document.querySelector('.filters').addEventListener('click', function (e) {
+  document.getElementById('chips').addEventListener('click', function (e) {
     var c = e.target.closest('.chip'); if (!c) return;
     var k = c.dataset.kind, v = c.dataset.value;
     if (k === 'all') { state.status = null; state.tool = null; state.q = ''; input.value = ''; clearBtn.hidden = true; }
-    else state[k] = state[k] === v ? null : v;   // single-select per group, tap again to release
+    else state[k] = state[k] === v ? null : v;   // one per group, tap again to release
     setChips(); apply();
   });
 
@@ -707,7 +575,8 @@ footer {
     if (e.key === 'Escape') { input.value = ''; state.q = ''; clearBtn.hidden = true; apply(); }
     if (e.key === 'Enter') input.blur();   // close the phone keyboard to reveal results
   });
-  clearBtn.addEventListener('click', function () {
+  clearBtn.addEventListener('click', function (e) {
+    e.preventDefault();
     input.value = ''; state.q = ''; clearBtn.hidden = true; apply(); input.focus();
   });
 
@@ -730,12 +599,12 @@ footer {
     var list = document.getElementById('list');
     var openKeys = [];
     list.querySelectorAll('.item.is-open').forEach(function (li) { openKeys.push(li.dataset.key); });
-    document.getElementById('sortFace').textContent = sel.value;
+    document.getElementById('sortFace').textContent = sel.options[sel.selectedIndex].text;
     list.innerHTML = '';
     sortProjects(data.projects || [], sel.value).forEach(function (p, i) { list.appendChild(item(p, i)); });
     syncMode();
     if (!desktop.matches) list.querySelectorAll('.item').forEach(function (li) {
-      if (openKeys.indexOf(li.dataset.key) !== -1) li.querySelector('.item__toggle').click();
+      if (openKeys.indexOf(li.dataset.key) !== -1) li.querySelector('.toggle').click();
     });
     apply();
   }
@@ -748,10 +617,12 @@ footer {
     document.getElementById('statTotal').textContent = ps.length;
     document.getElementById('statLive').textContent = n('live');
     document.getElementById('statWip').textContent = n('wip');
-    document.getElementById('statUpdated').textContent = d.generated_at ? d.generated_at.slice(5) : '–';
-    document.getElementById('statUpdated').title = d.generated_at || '';
-    document.querySelectorAll('[data-count]').forEach(function (s) { s.textContent = n(s.dataset.count); });
-    document.getElementById('footer').textContent = '// ' + ps.length + ' builds logged · auto-generated from projects.json · papa junkyu';
+    document.querySelectorAll('[data-count]').forEach(function (s) {
+      s.textContent = s.dataset.count === 'all' ? ps.length : n(s.dataset.count);
+    });
+    document.getElementById('foot').textContent = d.generated_at
+      ? fmtDate(d.generated_at) + '에 마지막으로 업데이트했어요.'
+      : '';
     renderList();
   }
 
@@ -761,7 +632,7 @@ footer {
     .catch(function (e) {
       var empty = document.getElementById('empty');
       empty.hidden = false;
-      empty.textContent = '// projects.json을 불러오지 못했습니다 (' + (e && e.message ? e.message : 'error') + '). python -m http.server로 실행했는지 확인하세요.';
+      empty.textContent = '프로젝트 목록을 불러오지 못했어요. 잠시 뒤 새로고침해 보세요.';
       console.error(e);
     });
 })();
