@@ -1,6 +1,79 @@
 {
-  "generated_at": "2026-07-03",
+  "generated_at": "2026-10-29",
   "projects": [
+    {
+      "name": "AI_Movie",
+      "display_name": "AI_Movie",
+      "tool": "Claude Code",
+      "summary": "아이 눈높이 AI 애니메이션 제작 프로젝트. 1화 '삐약이의 우산' 대본·콘티·영상 생성 준비 중.",
+      "tags": [
+        "AI Video",
+        "ComfyUI"
+      ],
+      "status": "wip",
+      "last_commit": null,
+      "links": {
+        "repo": null,
+        "live": null
+      },
+      "fingerprint": 0.0,
+      "summary_stale": false
+    },
+    {
+      "name": "Art_Exhibition",
+      "display_name": "전시 색인",
+      "tool": "Claude Code",
+      "summary": "서울·경기 미술 전시를 한곳에 모아 일정·장소별로 찾아보는 전시 색인 사이트.",
+      "tags": [
+        "Web",
+        "Firebase"
+      ],
+      "status": "live",
+      "last_commit": null,
+      "links": {
+        "repo": null,
+        "live": "https://art-index-seoul.web.app"
+      },
+      "fingerprint": 0.0,
+      "summary_stale": false
+    },
+    {
+      "name": "Class_Review",
+      "display_name": "Class_Review",
+      "tool": "Claude Code",
+      "summary": "화상영어 수업 녹음을 Gemini로 분석해 수업 품질 리포트를 만드는 도구.",
+      "tags": [
+        "Web",
+        "Firebase",
+        "Gemini"
+      ],
+      "status": "wip",
+      "last_commit": "2026-10-26",
+      "links": {
+        "repo": "https://github.com/Catomo88/class-review",
+        "live": null
+      },
+      "fingerprint": 1793013821.4905603,
+      "summary_stale": false
+    },
+    {
+      "name": "Health",
+      "display_name": "Health",
+      "tool": "Claude Code",
+      "summary": "체중·건강 목표와 기록을 한눈에 보는 개인 건강 대시보드.",
+      "tags": [
+        "Web",
+        "Firebase"
+      ],
+      "status": "wip",
+      "last_commit": null,
+      "links": {
+        "repo": null,
+        "live": null
+      },
+      "fingerprint": 0.0,
+      "summary_stale": false
+    },
     {
       "name": "image-classifier",
       "display_name": "image-classifier",
@@ -9,13 +82,32 @@
       "tags": [
         "Python"
       ],
-      "status": "wip",
+      "status": "paused",
       "last_commit": "2026-04-24",
       "links": {
         "repo": "https://github.com/Catomo88/image-classifier",
         "live": null
       },
       "fingerprint": 1776991751.8232336,
+      "summary_stale": false
+    },
+    {
+      "name": "KBO_card",
+      "display_name": "KBO_card",
+      "tool": "Claude Code",
+      "summary": "KBO 구단 기록을 '봉인된 야구 유물' 콘셉트의 프리미엄 카드로 보여주는 웹. 시즌 중 매일 자동 갱신.",
+      "tags": [
+        "Web",
+        "Python",
+        "Actions"
+      ],
+      "status": "wip",
+      "last_commit": "2026-10-27",
+      "links": {
+        "repo": "https://github.com/Catomo88/kbo-card",
+        "live": null
+      },
+      "fingerprint": 1784454540.152879,
       "summary_stale": false
     },
     {
@@ -28,11 +120,29 @@
         "Kotlin",
         "Wear OS"
       ],
-      "status": "wip",
-      "last_commit": "2026-07-02",
+      "status": "paused",
+      "last_commit": "2026-07-20",
       "links": {
         "repo": "https://github.com/Catomo88/Kids_Watch",
         "live": null
+      },
+      "fingerprint": 0.0,
+      "summary_stale": false
+    },
+    {
+      "name": "Pokemon_Card",
+      "display_name": "포켓몬 카드 도감",
+      "tool": "Claude Code",
+      "summary": "보유한 포켓몬 카드를 바인더처럼 정리해 보는 카드 도감 웹앱.",
+      "tags": [
+        "Web",
+        "Firebase"
+      ],
+      "status": "live",
+      "last_commit": null,
+      "links": {
+        "repo": null,
+        "live": "https://pokecard-binder.web.app"
       },
       "fingerprint": 0.0,
       "summary_stale": false
@@ -65,7 +175,7 @@
         "Web"
       ],
       "status": "wip",
-      "last_commit": "2026-07-02",
+      "last_commit": "2026-10-27",
       "links": {
         "repo": "https://github.com/Catomo88/Vision_FB_SW",
         "live": null
@@ -91,22 +201,57 @@
       "summary_stale": false
     },
     {
-      "name": "뭐든지_Claude_Code",
-      "display_name": "뭐든지 앱",
+      "name": "다마고치",
+      "display_name": "다마고치 진화표",
       "tool": "Claude Code",
-      "summary": "아이용 AI 학습 도우미와 부모 모니터링 앱으로 구성된 Android 가족용 AI 튜터 플랫폼.",
+      "summary": "다마고치 파라다이스의 캐릭터 진화 조건을 정리한 진화표 웹페이지.",
       "tags": [
-        "Android",
-        "Kotlin",
-        "AI"
+        "Web",
+        "HTML"
       ],
-      "status": "wip",
-      "last_commit": "2026-06-25",
+      "status": "live",
+      "last_commit": null,
       "links": {
         "repo": null,
-        "live": null
+        "live": "https://catomo88.github.io/tamagotchi/"
       },
-      "fingerprint": 1782345884.1681385,
+      "fingerprint": 0.0,
+      "summary_stale": false
+    },
+    {
+      "name": "뭐든지_Vibe_Coder",
+      "display_name": "뭐든지 코드",
+      "tool": "Claude Code",
+      "summary": "아이용 AI 코딩 튜터이자, 뭐든지 가족 앱(아이·부모·워치·수업 리뷰)을 모은 통합 저장소.",
+      "tags": [
+        "Web",
+        "Firebase",
+        "AI"
+      ],
+      "status": "live",
+      "last_commit": "2026-10-27",
+      "links": {
+        "repo": "https://github.com/Catomo88/mudeungi-code",
+        "live": "https://vibe-coder.web.app"
+      },
+      "fingerprint": 1793013155.78263,
+      "summary_stale": false
+    },
+    {
+      "name": "여행계획",
+      "display_name": "여행 계획",
+      "tool": "Claude Code",
+      "summary": "가족 여행의 항공·일정·숙소·쇼핑 정보를 정리한 여행 대시보드.",
+      "tags": [
+        "Web"
+      ],
+      "status": "live",
+      "last_commit": "2026-10-29",
+      "links": {
+        "repo": "https://github.com/Catomo88/Trip_Info_src",
+        "live": "https://catomo88.github.io/Trip_Info/"
+      },
+      "fingerprint": 0.0,
       "summary_stale": false
     },
     {
@@ -165,23 +310,6 @@
       "summary_stale": false
     },
     {
-      "name": "여행 계획",
-      "display_name": "여행 계획",
-      "tool": "Cowork",
-      "summary": "가족 여행의 숙소 후보를 분석·비교하고 일정을 HTML 대시보드로 정리하는 여행 계획 도구.",
-      "tags": [
-        "Web"
-      ],
-      "status": "live",
-      "last_commit": null,
-      "links": {
-        "repo": null,
-        "live": "https://catomo88.github.io/Trip_Info/"
-      },
-      "fingerprint": 0.0,
-      "summary_stale": false
-    },
-    {
       "name": "원준이네 아쿠아스케이핑",
       "display_name": "원준이네 아쿠아스케이핑",
       "tool": "Cowork",
@@ -213,24 +341,6 @@
       "links": {
         "repo": "https://github.com/Catomo88/education",
         "live": "https://catomo88.github.io/education/"
-      },
-      "fingerprint": 0.0,
-      "summary_stale": false
-    },
-    {
-      "name": "tamagotchi",
-      "display_name": "다마고치 진화표",
-      "tool": "Cowork",
-      "summary": "다마고치 파라다이스의 캐릭터 진화 조건을 정리한 진화표 웹페이지.",
-      "tags": [
-        "Web",
-        "HTML"
-      ],
-      "status": "live",
-      "last_commit": null,
-      "links": {
-        "repo": "https://github.com/Catomo88/tamagotchi",
-        "live": "https://catomo88.github.io/tamagotchi/"
       },
       "fingerprint": 0.0,
       "summary_stale": false
