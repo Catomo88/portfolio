@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29",
+  "generated_at": "2026-10-30",
   "projects": [
     {
       "name": "AI_Movie",
@@ -349,7 +349,7 @@
         "AI"
       ],
       "status": "live",
-      "last_commit": "2026-10-29",
+      "last_commit": "2026-10-30",
       "links": {
         "repo": "https://github.com/Catomo88/mudeungi-code",
         "live": "https://vibe-coder.web.app"
@@ -358,28 +358,28 @@
       "summary_stale": false,
       "log": [
         {
-          "date": "2026-10-29",
-          "text": "KBO 선발 공략 노트(codebase kbo) 함수·컬렉션 추가"
+          "date": "2026-10-30",
+          "text": "호루라기를 크고 날카롭게, 생일 축하 노래를 화음·베이스·북 반주로 웅장하게"
         },
         {
-          "date": "2026-10-27",
-          "text": "Ollie 화상영어 구현 계획"
+          "date": "2026-10-30",
+          "text": "상황별 배경음악·효과음 보강 + 소리 듣기 페이지"
         },
         {
-          "date": "2026-10-27",
-          "text": "Ollie 준비되는 대로 사용, VIPKid 끝날 때까지 병행"
+          "date": "2026-10-30",
+          "text": "3팀 점검 — 리허설 케이크가 파티에 섞이지 않게, 생일 케이크를 팀 케이크가 호위"
         },
         {
-          "date": "2026-10-27",
-          "text": "Ollie 화상영어 앱 설계"
+          "date": "2026-10-30",
+          "text": "별가루 릴레이 화면을 '오려 붙인 스크랩북' UI로 교체"
         },
         {
-          "date": "2026-10-27",
-          "text": "진행현황 — 부모 앱 v1.8, 워치 보류 사유, 스택찬 절감, 화상영어 비용 실측"
+          "date": "2026-10-30",
+          "text": "별가루 릴레이 먹보 구름(보스) + 마무리에서 별빛 자동 채움"
         }
       ],
       "log_private": false,
-      "activity_30d": 58
+      "activity_30d": 73
     },
     {
       "name": "여행계획",
