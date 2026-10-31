@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30",
+  "generated_at": "2026-10-31",
   "projects": [
     {
       "name": "AI_Movie",
@@ -295,7 +295,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 47
+      "activity_30d": 45
     },
     {
       "name": "결함진단피드백_SW",
@@ -349,7 +349,7 @@
         "AI"
       ],
       "status": "live",
-      "last_commit": "2026-10-30",
+      "last_commit": "2026-10-31",
       "links": {
         "repo": "https://github.com/Catomo88/mudeungi-code",
         "live": "https://vibe-coder.web.app"
@@ -358,28 +358,28 @@
       "summary_stale": false,
       "log": [
         {
-          "date": "2026-10-30",
-          "text": "호루라기를 크고 날카롭게, 생일 축하 노래를 화음·베이스·북 반주로 웅장하게"
+          "date": "2026-10-31",
+          "text": "별가루 동작 카드·교체 쪽지를 오른쪽으로 — 구름 게이지와 겹침"
         },
         {
-          "date": "2026-10-30",
-          "text": "상황별 배경음악·효과음 보강 + 소리 듣기 페이지"
+          "date": "2026-10-31",
+          "text": "별가루 팀 칸을 팀 색 바탕과 굵은 흰 점선으로 또렷하게"
         },
         {
-          "date": "2026-10-30",
-          "text": "3팀 점검 — 리허설 케이크가 파티에 섞이지 않게, 생일 케이크를 팀 케이크가 호위"
+          "date": "2026-10-31",
+          "text": "별가루가 아이가 움직인 자리에서 튀어나와 팀 병으로 빨려 들어간다"
         },
         {
-          "date": "2026-10-30",
-          "text": "별가루 릴레이 화면을 '오려 붙인 스크랩북' UI로 교체"
+          "date": "2026-10-31",
+          "text": "포즈 AI 모드를 320폭으로 줄여 1초에 2번만 인식 — 태블릿 버벅임"
         },
         {
-          "date": "2026-10-30",
-          "text": "별가루 릴레이 먹보 구름(보스) + 마무리에서 별빛 자동 채움"
+          "date": "2026-10-31",
+          "text": "포즈 따라하기에 크레파스 막대 인형 그림, 카메라 화면 가득, 별가루 판별 움직임 기록(dustlog.html)"
         }
       ],
       "log_private": false,
-      "activity_30d": 73
+      "activity_30d": 78
     },
     {
       "name": "여행계획",
@@ -390,7 +390,7 @@
         "Web"
       ],
       "status": "live",
-      "last_commit": "2026-10-29",
+      "last_commit": "2026-10-30",
       "links": {
         "repo": "https://github.com/Catomo88/Trip_Info_src",
         "live": "https://catomo88.github.io/Trip_Info/"
@@ -399,7 +399,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 6
+      "activity_30d": 9
     },
     {
       "name": "AI English tutor",
