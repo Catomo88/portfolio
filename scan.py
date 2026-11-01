@@ -98,10 +98,12 @@ def _is_repo_root(folder):
     return bool(toplevel) and Path(toplevel).resolve() == Path(folder).resolve()
 
 
-def get_git_log(folder):
-    if not _is_repo_root(folder):
+def get_git_log(folder, subfolder=False):
+    # subfolder=True: 큰 저장소 안의 하위 폴더 — 그 폴더를 건드린 커밋만 센다.
+    if not (_is_repo_root(folder) or subfolder and _git(folder, "rev-parse").returncode == 0):
         return {"log": [], "activity_30d": 0}
-    recent = _git(folder, "log", "-n", "60", "--no-merges", "--format=%cs%x09%s")
+    only = ["--", "."] if subfolder else []
+    recent = _git(folder, "log", "-n", "60", "--no-merges", "--format=%cs%x09%s", *only)
     log = []
     for line in recent.stdout.splitlines():
         date, _, subject = line.partition("\t")
@@ -109,7 +111,7 @@ def get_git_log(folder):
             log.append({"date": date, "text": PREFIX.sub("", subject).strip()})
         if len(log) == LOG_LIMIT:
             break
-    month = _git(folder, "log", "--since=30.days", "--no-merges", "--format=%s")
+    month = _git(folder, "log", "--since=30.days", "--no-merges", "--format=%s", *only)
     activity = sum(1 for s in month.stdout.splitlines() if s and not NOISE.match(s))
     return {"log": log, "activity_30d": activity}
 
@@ -169,9 +171,15 @@ def build_project(disc):
 
 
 def build_manual(entry):
-    # config의 manual 항목 — 로컬 폴더가 없는(채팅/원격 전용) 프로젝트를 직접 정의한다.
+    # config의 manual 항목 — 로컬 폴더가 없는(채팅/원격 전용) 프로젝트나,
+    # 다른 저장소 안의 하위 폴더("path")로 사는 프로젝트를 직접 정의한다.
     name = entry["name"]
     summary = entry.get("summary", "")
+    history, last_commit = {"log": [], "activity_30d": 0}, entry.get("last_commit")
+    if entry.get("path"):
+        history = get_git_log(entry["path"], subfolder=True)
+        last = _git(entry["path"], "log", "-1", "--format=%cs", "--", ".")
+        last_commit = last.stdout.strip() or last_commit
     return {
         "name": name,
         "display_name": entry.get("display_name", name),
@@ -179,13 +187,13 @@ def build_manual(entry):
         "summary": summary,
         "tags": list(entry.get("tags", [])),
         "status": entry.get("status", "wip"),
-        "last_commit": entry.get("last_commit"),
+        "last_commit": last_commit,
         "links": {"repo": entry.get("repo"), "live": entry.get("live")},
         "fingerprint": 0.0,
         "summary_stale": not summary,
-        "log": [],
-        "log_private": False,
-        "activity_30d": 0,
+        "log": [] if entry.get("log") == "count" else history["log"],
+        "log_private": entry.get("log") == "count",
+        "activity_30d": history["activity_30d"],
     }
 
 

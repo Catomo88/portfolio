@@ -231,3 +231,18 @@ def test_run_scan_keeps_generated_at_when_nothing_changed(tmp_path):
     out.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     scan.run_scan(config, out)
     assert json.loads(out.read_text(encoding="utf-8"))["generated_at"] == "2000-01-01"
+
+def test_build_manual_subfolder_reads_only_its_own_commits(tmp_path):
+    import subprocess
+    repo = tmp_path / "mono"; repo.mkdir()
+    _init_git_repo(repo)
+    sub = repo / "party"; sub.mkdir()
+    (sub / "index.html").write_text("x", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True, capture_output=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-qm", "feat(party): 퀴즈 추가"],
+                   check=True, capture_output=True)
+    _commit(repo, "fix: 다른 앱 수정")
+    p = scan.build_manual({"name": "party", "path": str(sub), "summary": "s"})
+    assert [e["text"] for e in p["log"]] == ["퀴즈 추가"]   # 하위 폴더 커밋만
+    assert p["activity_30d"] == 1
+    assert p["last_commit"]                                 # git에서 채워짐

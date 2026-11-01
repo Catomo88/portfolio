@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31",
+  "generated_at": "2026-11-01",
   "projects": [
     {
       "name": "AI_Movie",
@@ -295,7 +295,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 45
+      "activity_30d": 39
     },
     {
       "name": "결함진단피드백_SW",
@@ -349,7 +349,7 @@
         "AI"
       ],
       "status": "live",
-      "last_commit": "2026-10-31",
+      "last_commit": "2026-11-01",
       "links": {
         "repo": "https://github.com/Catomo88/mudeungi-code",
         "live": "https://vibe-coder.web.app"
@@ -357,6 +357,10 @@
       "fingerprint": 1793013155.78263,
       "summary_stale": false,
       "log": [
+        {
+          "date": "2026-11-01",
+          "text": "퀴즈 한 판 최대 10문제"
+        },
         {
           "date": "2026-10-31",
           "text": "별가루 동작 카드·교체 쪽지를 오른쪽으로 — 구름 게이지와 겹침"
@@ -372,10 +376,6 @@
         {
           "date": "2026-10-31",
           "text": "포즈 AI 모드를 320폭으로 줄여 1초에 2번만 인식 — 태블릿 버벅임"
-        },
-        {
-          "date": "2026-10-31",
-          "text": "포즈 따라하기에 크레파스 막대 인형 그림, 카메라 화면 가득, 별가루 판별 움직임 기록(dustlog.html)"
         }
       ],
       "log_private": false,
@@ -506,6 +506,28 @@
       "log": [],
       "log_private": false,
       "activity_30d": 0
+    },
+    {
+      "name": "party",
+      "display_name": "생일 별잔치",
+      "tool": "Claude Code",
+      "summary": "아이 생일 파티를 태블릿 카메라·리모컨으로 진행하는 놀이판 — 퀴즈, 포즈 따라하기, 별가루 릴레이, 케이크·축하 노래까지.",
+      "tags": [
+        "Web",
+        "Firebase",
+        "Camera AI"
+      ],
+      "status": "live",
+      "last_commit": "2026-11-01",
+      "links": {
+        "repo": null,
+        "live": "https://bora-party.web.app"
+      },
+      "fingerprint": 0.0,
+      "summary_stale": false,
+      "log": [],
+      "log_private": true,
+      "activity_30d": 32
     }
   ]
 }

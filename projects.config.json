@@ -158,6 +158,21 @@
       "status": "live",
       "repo": "https://github.com/Catomo88/education",
       "live": "https://catomo88.github.io/education/"
+    },
+    {
+      "name": "party",
+      "display_name": "생일 별잔치",
+      "tool": "Claude Code",
+      "path": "C:/Users/ljk90/Desktop/Papa Jun Kyu/뭐든지_Vibe_Coder/party",
+      "summary": "아이 생일 파티를 태블릿 카메라·리모컨으로 진행하는 놀이판 — 퀴즈, 포즈 따라하기, 별가루 릴레이, 케이크·축하 노래까지.",
+      "tags": [
+        "Web",
+        "Firebase",
+        "Camera AI"
+      ],
+      "status": "live",
+      "live": "https://bora-party.web.app",
+      "log": "count"
     }
   ]
 }
