@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01",
+  "generated_at": "2026-11-02",
   "projects": [
     {
       "name": "AI_Movie",
@@ -349,7 +349,7 @@
         "AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-01",
+      "last_commit": "2026-11-02",
       "links": {
         "repo": "https://github.com/Catomo88/mudeungi-code",
         "live": "https://vibe-coder.web.app"
@@ -357,6 +357,14 @@
       "fingerprint": 1793013155.78263,
       "summary_stale": false,
       "log": [
+        {
+          "date": "2026-11-02",
+          "text": "카메라 고르면 시작 화면 왼쪽 아래에 미리보기"
+        },
+        {
+          "date": "2026-11-02",
+          "text": "시작 화면에서 앞/뒤(광각) 카메라 고르기 — 기기에 기억"
+        },
         {
           "date": "2026-11-01",
           "text": "시작을 누른 기기가 메인 무대 — 다른 무대 기기는 명령을 안 받고 시작 화면으로"
@@ -368,18 +376,10 @@
         {
           "date": "2026-10-31",
           "text": "별가루 동작 카드·교체 쪽지를 오른쪽으로 — 구름 게이지와 겹침"
-        },
-        {
-          "date": "2026-10-31",
-          "text": "별가루 팀 칸을 팀 색 바탕과 굵은 흰 점선으로 또렷하게"
-        },
-        {
-          "date": "2026-10-31",
-          "text": "별가루가 아이가 움직인 자리에서 튀어나와 팀 병으로 빨려 들어간다"
         }
       ],
       "log_private": false,
-      "activity_30d": 79
+      "activity_30d": 81
     },
     {
       "name": "여행계획",
@@ -518,7 +518,7 @@
         "Camera AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-01",
+      "last_commit": "2026-11-02",
       "links": {
         "repo": null,
         "live": "https://bora-party.web.app"
@@ -527,7 +527,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 33
+      "activity_30d": 35
     }
   ]
 }
