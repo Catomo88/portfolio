@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02",
+  "generated_at": "2026-11-03",
   "projects": [
     {
       "name": "AI_Movie",
@@ -359,6 +359,14 @@
       "log": [
         {
           "date": "2026-11-02",
+          "text": "여는 마당 — '누구 생일이지?' 뒤 4초 대답할 틈(순서표 waitSec)"
+        },
+        {
+          "date": "2026-11-02",
+          "text": "포즈 AI — 말하는 동안 미리 불러 첫 포즈부터 채점, 가까이 서도 상체 포즈 채점, 다리 안 보이면 '조금 뒤로'"
+        },
+        {
+          "date": "2026-11-02",
           "text": "카메라 고르면 시작 화면 왼쪽 아래에 미리보기"
         },
         {
@@ -368,18 +376,10 @@
         {
           "date": "2026-11-01",
           "text": "시작을 누른 기기가 메인 무대 — 다른 무대 기기는 명령을 안 받고 시작 화면으로"
-        },
-        {
-          "date": "2026-11-01",
-          "text": "퀴즈 한 판 최대 10문제"
-        },
-        {
-          "date": "2026-10-31",
-          "text": "별가루 동작 카드·교체 쪽지를 오른쪽으로 — 구름 게이지와 겹침"
         }
       ],
       "log_private": false,
-      "activity_30d": 81
+      "activity_30d": 83
     },
     {
       "name": "여행계획",
@@ -390,7 +390,7 @@
         "Web"
       ],
       "status": "live",
-      "last_commit": "2026-10-30",
+      "last_commit": "2026-11-02",
       "links": {
         "repo": "https://github.com/Catomo88/Trip_Info_src",
         "live": "https://catomo88.github.io/Trip_Info/"
@@ -399,7 +399,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 9
+      "activity_30d": 10
     },
     {
       "name": "AI English tutor",
@@ -527,7 +527,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 35
+      "activity_30d": 37
     }
   ]
 }
