@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06",
+  "generated_at": "2026-11-07",
   "projects": [
     {
       "name": "AI_Movie",
@@ -349,7 +349,7 @@
         "AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-02",
+      "last_commit": "2026-11-07",
       "links": {
         "repo": "https://github.com/Catomo88/mudeungi-code",
         "live": "https://vibe-coder.web.app"
@@ -358,28 +358,28 @@
       "summary_stale": false,
       "log": [
         {
-          "date": "2026-11-02",
-          "text": "여는 마당 — '누구 생일이지?' 뒤 4초 대답할 틈(순서표 waitSec)"
+          "date": "2026-11-07",
+          "text": "시작을 두 단계로 — 무대 기기 터치로 준비, 시작은 리모컨(한 번 더 터치도 가능)"
         },
         {
-          "date": "2026-11-02",
-          "text": "포즈 AI — 말하는 동안 미리 불러 첫 포즈부터 채점, 가까이 서도 상체 포즈 채점, 다리 안 보이면 '조금 뒤로'"
+          "date": "2026-11-06",
+          "text": "퀴즈 시간제한 제거(⏭는 버저 대기 중에도 동작), 콘텐츠 받기 재시도, 게임이 터져도 쇼는 안 멈춤"
         },
         {
-          "date": "2026-11-02",
-          "text": "카메라 고르면 시작 화면 왼쪽 아래에 미리보기"
+          "date": "2026-11-06",
+          "text": "퀴즈 오답 순서 — 틀린 팀 제외, 한 팀 남으면 자동 차례, 다 틀리면 모두 다시 먼저 누르기"
         },
         {
-          "date": "2026-11-02",
-          "text": "시작 화면에서 앞/뒤(광각) 카메라 고르기 — 기기에 기억"
+          "date": "2026-11-06",
+          "text": "퀴즈 버저 — 거의 같이 눌러 진 팀도 틀린 뒤 다시 누를 수 있게, 답하는 중 누른 입력은 되살리지 않게"
         },
         {
-          "date": "2026-11-01",
-          "text": "시작을 누른 기기가 메인 무대 — 다른 무대 기기는 명령을 안 받고 시작 화면으로"
+          "date": "2026-11-06",
+          "text": "화면 꺼짐 방지를 공용으로 — 누를 때·30초마다 다시 걸고, 못 걸면 알려 준다"
         }
       ],
       "log_private": false,
-      "activity_30d": 83
+      "activity_30d": 89
     },
     {
       "name": "여행계획",
@@ -518,7 +518,7 @@
         "Camera AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-02",
+      "last_commit": "2026-11-07",
       "links": {
         "repo": null,
         "live": "https://bora-party.web.app"
@@ -527,7 +527,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 37
+      "activity_30d": 43
     }
   ]
 }
