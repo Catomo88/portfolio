@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07",
+  "generated_at": "2026-11-08",
   "projects": [
     {
       "name": "AI_Movie",
@@ -84,7 +84,7 @@
         }
       ],
       "log_private": false,
-      "activity_30d": 6
+      "activity_30d": 4
     },
     {
       "name": "Health",
