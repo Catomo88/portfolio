@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08",
+  "generated_at": "2026-11-09",
   "projects": [
     {
       "name": "AI_Movie",
@@ -349,7 +349,7 @@
         "AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-07",
+      "last_commit": "2026-11-09",
       "links": {
         "repo": "https://github.com/Catomo88/mudeungi-code",
         "live": "https://vibe-coder.web.app"
@@ -358,28 +358,28 @@
       "summary_stale": false,
       "log": [
         {
+          "date": "2026-11-09",
+          "text": "막대인형을 영상 속 실제 댄서 동작에 맞춤, 점수·카메라 빼고 연습 화면으로"
+        },
+        {
+          "date": "2026-11-09",
+          "text": "영상 그대로 대신 아이용 안무 — 막대인형 선생님 + 동작 배우기"
+        },
+        {
+          "date": "2026-11-09",
+          "text": "Perfect 따라 춤추기 — 유튜브 안무 영상 + 카메라로 두 사람 동작 비교"
+        },
+        {
           "date": "2026-11-07",
           "text": "시작을 두 단계로 — 무대 기기 터치로 준비, 시작은 리모컨(한 번 더 터치도 가능)"
         },
         {
           "date": "2026-11-06",
           "text": "퀴즈 시간제한 제거(⏭는 버저 대기 중에도 동작), 콘텐츠 받기 재시도, 게임이 터져도 쇼는 안 멈춤"
-        },
-        {
-          "date": "2026-11-06",
-          "text": "퀴즈 오답 순서 — 틀린 팀 제외, 한 팀 남으면 자동 차례, 다 틀리면 모두 다시 먼저 누르기"
-        },
-        {
-          "date": "2026-11-06",
-          "text": "퀴즈 버저 — 거의 같이 눌러 진 팀도 틀린 뒤 다시 누를 수 있게, 답하는 중 누른 입력은 되살리지 않게"
-        },
-        {
-          "date": "2026-11-06",
-          "text": "화면 꺼짐 방지를 공용으로 — 누를 때·30초마다 다시 걸고, 못 걸면 알려 준다"
         }
       ],
       "log_private": false,
-      "activity_30d": 89
+      "activity_30d": 92
     },
     {
       "name": "여행계획",
@@ -518,7 +518,7 @@
         "Camera AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-07",
+      "last_commit": "2026-11-09",
       "links": {
         "repo": null,
         "live": "https://bora-party.web.app"
@@ -527,7 +527,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 43
+      "activity_30d": 46
     }
   ]
 }
