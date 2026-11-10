@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09",
+  "generated_at": "2026-11-10",
   "projects": [
     {
       "name": "AI_Movie",
@@ -349,7 +349,7 @@
         "AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-09",
+      "last_commit": "2026-11-10",
       "links": {
         "repo": "https://github.com/Catomo88/mudeungi-code",
         "live": "https://vibe-coder.web.app"
@@ -358,28 +358,28 @@
       "summary_stale": false,
       "log": [
         {
-          "date": "2026-11-09",
-          "text": "막대인형을 영상 속 실제 댄서 동작에 맞춤, 점수·카메라 빼고 연습 화면으로"
+          "date": "2026-11-10",
+          "text": "포즈 게임 목소리 리모컨 + 블루투스 프레젠터·키보드 단축키"
         },
         {
-          "date": "2026-11-09",
-          "text": "영상 그대로 대신 아이용 안무 — 막대인형 선생님 + 동작 배우기"
+          "date": "2026-11-10",
+          "text": "찰칵은 '1' 뒤 조금 늦게, 미니언즈 Hair 구절을 실제 곡 구간(23.76초~)에 맞춤"
         },
         {
-          "date": "2026-11-09",
-          "text": "Perfect 따라 춤추기 — 유튜브 안무 영상 + 카메라로 두 사람 동작 비교"
+          "date": "2026-11-10",
+          "text": "포즈 게임 피날레 — 곡 색 햇살이 돌고 반짝이가 쏟아지며 대표 사진을 크게"
         },
         {
-          "date": "2026-11-07",
-          "text": "시작을 두 단계로 — 무대 기기 터치로 준비, 시작은 리모컨(한 번 더 터치도 가능)"
+          "date": "2026-11-10",
+          "text": "만화 선생님 + 곡별 소품, 크레파스·스티커 이펙트, 아이 머리 위 소품"
         },
         {
-          "date": "2026-11-06",
-          "text": "퀴즈 시간제한 제거(⏭는 버저 대기 중에도 동작), 콘텐츠 받기 재시도, 게임이 터져도 쇼는 안 멈춤"
+          "date": "2026-11-10",
+          "text": "따라 춤추기도 실제 템포로 — Soda Pop 126·바나나차차 140 BPM (들썩임·직접 짠 자세 박자)"
         }
       ],
       "log_private": false,
-      "activity_30d": 92
+      "activity_30d": 107
     },
     {
       "name": "여행계획",
@@ -518,7 +518,7 @@
         "Camera AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-09",
+      "last_commit": "2026-11-10",
       "links": {
         "repo": null,
         "live": "https://bora-party.web.app"
@@ -527,7 +527,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 46
+      "activity_30d": 61
     }
   ]
 }
