@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10",
+  "generated_at": "2026-11-11",
   "projects": [
     {
       "name": "AI_Movie",
@@ -295,7 +295,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 29
+      "activity_30d": 28
     },
     {
       "name": "결함진단피드백_SW",
@@ -349,7 +349,7 @@
         "AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-10",
+      "last_commit": "2026-11-11",
       "links": {
         "repo": "https://github.com/Catomo88/mudeungi-code",
         "live": "https://vibe-coder.web.app"
@@ -358,28 +358,28 @@
       "summary_stale": false,
       "log": [
         {
-          "date": "2026-11-10",
-          "text": "포즈 게임 목소리 리모컨 + 블루투스 프레젠터·키보드 단축키"
+          "date": "2026-11-11",
+          "text": "선생님을 팝 스티커 히어로로 — 흰 다이컷 테두리·남색 선·오프셋 그림자, 티셔츠 망점, 관절 핀, 박마다 방사선, 포즈 고정 금테(몸통만), 찰칵 사진에 보라 스티커"
         },
         {
-          "date": "2026-11-10",
-          "text": "찰칵은 '1' 뒤 조금 늦게, 미니언즈 Hair 구절을 실제 곡 구간(23.76초~)에 맞춤"
+          "date": "2026-11-11",
+          "text": "도장 배지에서 모자·왕관 쓴 보라 얼굴이 잘리지 않게 작게 맞춤, 배지를 꼬리표 위로"
         },
         {
-          "date": "2026-11-10",
-          "text": "포즈 게임 피날레 — 곡 색 햇살이 돌고 반짝이가 쏟아지며 대표 사진을 크게"
+          "date": "2026-11-11",
+          "text": "컷인 소품 바나나(두 개 송이·꼭지·하이라이트)·고깔(줄무늬·땡땡이·물결 밑단·복슬 방울) 다시 그림, 모자·왕관은 패널에 안 잘리게"
         },
         {
-          "date": "2026-11-10",
-          "text": "만화 선생님 + 곡별 소품, 크레파스·스티커 이펙트, 아이 머리 위 소품"
+          "date": "2026-11-11",
+          "text": "컷인 문구를 띠의 빈 칸 가운데에 꽉 차게(영문 폭 따로 셈, 긴 제목은 두 줄), 띠 기울기에 맞춤, '시작!'은 띠 아래로"
         },
         {
-          "date": "2026-11-10",
-          "text": "따라 춤추기도 실제 템포로 — Soda Pop 126·바나나차차 140 BPM (들썩임·직접 짠 자세 박자)"
+          "date": "2026-11-11",
+          "text": "오프닝·도장도 컷인 스타일로 — 오프닝은 '준비됐니?' 꼬리표 + 곡 제목 쾅 + '시작!', 도장은 보라 얼굴 배지 6가지"
         }
       ],
       "log_private": false,
-      "activity_30d": 107
+      "activity_30d": 125
     },
     {
       "name": "여행계획",
@@ -518,7 +518,7 @@
         "Camera AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-10",
+      "last_commit": "2026-11-11",
       "links": {
         "repo": null,
         "live": "https://bora-party.web.app"
@@ -527,7 +527,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 61
+      "activity_30d": 79
     }
   ]
 }
