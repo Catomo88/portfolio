@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11",
+  "generated_at": "2026-11-12",
   "projects": [
     {
       "name": "AI_Movie",
@@ -39,6 +39,26 @@
       },
       "fingerprint": 0.0,
       "summary_stale": false,
+      "log": [],
+      "log_private": false,
+      "activity_30d": 0
+    },
+    {
+      "name": "Asset",
+      "display_name": "Asset",
+      "tool": "Claude Code",
+      "summary": "",
+      "tags": [
+        "Python"
+      ],
+      "status": "wip",
+      "last_commit": null,
+      "links": {
+        "repo": null,
+        "live": null
+      },
+      "fingerprint": 0.0,
+      "summary_stale": true,
       "log": [],
       "log_private": false,
       "activity_30d": 0
@@ -295,7 +315,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 28
+      "activity_30d": 24
     },
     {
       "name": "결함진단피드백_SW",
@@ -349,7 +369,7 @@
         "AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-11",
+      "last_commit": "2026-11-12",
       "links": {
         "repo": "https://github.com/Catomo88/mudeungi-code",
         "live": "https://vibe-coder.web.app"
@@ -358,28 +378,28 @@
       "summary_stale": false,
       "log": [
         {
-          "date": "2026-11-11",
-          "text": "선생님을 팝 스티커 히어로로 — 흰 다이컷 테두리·남색 선·오프셋 그림자, 티셔츠 망점, 관절 핀, 박마다 방사선, 포즈 고정 금테(몸통만), 찰칵 사진에 보라 스티커"
+          "date": "2026-11-12",
+          "text": "One More Time은 트롤 영화 장면(TUNE: Kids)으로, Perfect는 공식 가사 영상(영화 장면)으로 — 소리 분석으로 박자·구절 다시 맞춤"
         },
         {
-          "date": "2026-11-11",
-          "text": "도장 배지에서 모자·왕관 쓴 보라 얼굴이 잘리지 않게 작게 맞춤, 배지를 꼬리표 위로"
+          "date": "2026-11-12",
+          "text": "피날레 사진을 화면 높이에 맞춰(4:3 사진이 TV에서 아래 버튼을 가리지 않게), 빈 사진 줄은 숨김"
         },
         {
-          "date": "2026-11-11",
-          "text": "컷인 소품 바나나(두 개 송이·꼭지·하이라이트)·고깔(줄무늬·땡땡이·물결 밑단·복슬 방울) 다시 그림, 모자·왕관은 패널에 안 잘리게"
+          "date": "2026-11-12",
+          "text": "새 곡 LEMONADE·One More Time(전용 동작·포즈·선생님 테마·효과 영상), Perfect는 공식 음원으로(114 BPM 다시 맞춤), 피날레 사진을 한 장씩 크게 넘기기, 성능 기록(log.html)"
         },
         {
-          "date": "2026-11-11",
-          "text": "컷인 문구를 띠의 빈 칸 가운데에 꽉 차게(영문 폭 따로 셈, 긴 제목은 두 줄), 띠 기울기에 맞춤, '시작!'은 띠 아래로"
+          "date": "2026-11-12",
+          "text": "놀이터 화면 상태에 지난 곡·재생 중이 남지 않게 모든 칸 채워 올리기"
         },
         {
-          "date": "2026-11-11",
-          "text": "오프닝·도장도 컷인 스타일로 — 오프닝은 '준비됐니?' 꼬리표 + 곡 제목 쾅 + '시작!', 도장은 보라 얼굴 배지 6가지"
+          "date": "2026-11-12",
+          "text": "폰 리모컨(dance/remote.html) — 시작·멈춤·처음부터·곡 고르기·곡 바로 틀기·화면 바꾸기, TV 상태 표시, 놀이터에 QR"
         }
       ],
       "log_private": false,
-      "activity_30d": 125
+      "activity_30d": 132
     },
     {
       "name": "여행계획",
@@ -518,7 +538,7 @@
         "Camera AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-11",
+      "last_commit": "2026-11-12",
       "links": {
         "repo": null,
         "live": "https://bora-party.web.app"
@@ -527,7 +547,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 79
+      "activity_30d": 86
     }
   ]
 }
