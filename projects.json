@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12",
+  "generated_at": "2026-11-13",
   "projects": [
     {
       "name": "AI_Movie",
@@ -306,7 +306,7 @@
         "Web"
       ],
       "status": "wip",
-      "last_commit": "2026-10-27",
+      "last_commit": "2026-11-13",
       "links": {
         "repo": "https://github.com/Catomo88/Vision_FB_SW",
         "live": null
@@ -379,6 +379,14 @@
       "log": [
         {
           "date": "2026-11-12",
+          "text": "새 곡 I Like to Move It(공식 뮤비, 127 BPM)·Who Let the Dogs Out(트롤 장면 영상, 원곡과 4.70초 차이로 맞춤) — 동물·강아지 동작과 포즈, 왕관·얼룩말·뼈다귀·강아지 귀 선생님, 오프닝·엔딩 효과 영상"
+        },
+        {
+          "date": "2026-11-12",
+          "text": "새 곡 ZOO(공식 뮤직비디오, 129 BPM 구절 분석) — 동물 동작·포즈, 토끼 귀·당근·별 배지 선생님, 오프닝·엔딩 효과 영상. 팔 파도타기는 좌우 두 자세·2박마다로 쉽게"
+        },
+        {
+          "date": "2026-11-12",
           "text": "One More Time은 트롤 영화 장면(TUNE: Kids)으로, Perfect는 공식 가사 영상(영화 장면)으로 — 소리 분석으로 박자·구절 다시 맞춤"
         },
         {
@@ -388,18 +396,10 @@
         {
           "date": "2026-11-12",
           "text": "새 곡 LEMONADE·One More Time(전용 동작·포즈·선생님 테마·효과 영상), Perfect는 공식 음원으로(114 BPM 다시 맞춤), 피날레 사진을 한 장씩 크게 넘기기, 성능 기록(log.html)"
-        },
-        {
-          "date": "2026-11-12",
-          "text": "놀이터 화면 상태에 지난 곡·재생 중이 남지 않게 모든 칸 채워 올리기"
-        },
-        {
-          "date": "2026-11-12",
-          "text": "폰 리모컨(dance/remote.html) — 시작·멈춤·처음부터·곡 고르기·곡 바로 틀기·화면 바꾸기, TV 상태 표시, 놀이터에 QR"
         }
       ],
       "log_private": false,
-      "activity_30d": 132
+      "activity_30d": 134
     },
     {
       "name": "여행계획",
@@ -547,7 +547,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 86
+      "activity_30d": 88
     }
   ]
 }
