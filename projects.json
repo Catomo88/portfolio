@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13",
+  "generated_at": "2026-11-14",
   "projects": [
     {
       "name": "AI_Movie",
@@ -369,7 +369,7 @@
         "AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-12",
+      "last_commit": "2026-11-14",
       "links": {
         "repo": "https://github.com/Catomo88/mudeungi-code",
         "live": "https://vibe-coder.web.app"
@@ -378,28 +378,28 @@
       "summary_stale": false,
       "log": [
         {
-          "date": "2026-11-12",
-          "text": "새 곡 I Like to Move It(공식 뮤비, 127 BPM)·Who Let the Dogs Out(트롤 장면 영상, 원곡과 4.70초 차이로 맞춤) — 동물·강아지 동작과 포즈, 왕관·얼룩말·뼈다귀·강아지 귀 선생님, 오프닝·엔딩 효과 영상"
+          "date": "2026-11-14",
+          "text": "한쪽에 여럿이 서도 되게 '왼쪽 팀·오른쪽 팀'으로"
         },
         {
-          "date": "2026-11-12",
-          "text": "새 곡 ZOO(공식 뮤직비디오, 129 BPM 구절 분석) — 동물 동작·포즈, 토끼 귀·당근·별 배지 선생님, 오프닝·엔딩 효과 영상. 팔 파도타기는 좌우 두 자세·2박마다로 쉽게"
+          "date": "2026-11-14",
+          "text": "레이싱 — 커브는 아무 손이나 번쩍, '곧 커브! 준비' → '지금! 손 번쩍!' 두 단계 스티커 안내+소리, 표지 그림 🙋. 물총 — 팔 겨누기 빼고 과녁 앞 손 흔들기로(아이 반응 좋음), 맞히는 팀 구석에서 물줄기"
         },
         {
-          "date": "2026-11-12",
-          "text": "One More Time은 트롤 영화 장면(TUNE: Kids)으로, Perfect는 공식 가사 영상(영화 장면)으로 — 소리 분석으로 박자·구절 다시 맞춤"
+          "date": "2026-11-14",
+          "text": "코너 손 번쩍 인식 — 몸 인식 GPU 안 되면 CPU로, 느린 기기는 끄지 않고 덜 자주, 팔꿈치만 올려도 인정, 표지 동안 안 보인 친구는 통과, 기록에 표지별 인식 상태. 위 도로판 44→30vh, 노는 중 마이크 칩 숨김(이름표와 겹침)"
         },
         {
-          "date": "2026-11-12",
-          "text": "피날레 사진을 화면 높이에 맞춰(4:3 사진이 TV에서 아래 버튼을 가리지 않게), 빈 사진 줄은 숨김"
+          "date": "2026-11-14",
+          "text": "물총 대작전(1~2명 협동) — 팔 쭉 뻗어 겨누면 물줄기, 풍선 괴물→꾸물 구름·반짝 별→먹보 구름 대왕, 몸 인식 없으면 손 흔들어 맞히기, 오프닝·엔딩 영상, 놀이터 6번"
         },
         {
-          "date": "2026-11-12",
-          "text": "새 곡 LEMONADE·One More Time(전용 동작·포즈·선생님 테마·효과 영상), Perfect는 공식 음원으로(114 BPM 다시 맞춤), 피날레 사진을 한 장씩 크게 넘기기, 성능 기록(log.html)"
+          "date": "2026-11-14",
+          "text": "물총 대작전 전 겨누기 시험 화면(dance/aimtest.html) — 팔 방향 과녁, 인식 ms·fps·사람 수 표시"
         }
       ],
       "log_private": false,
-      "activity_30d": 134
+      "activity_30d": 162
     },
     {
       "name": "여행계획",
@@ -538,7 +538,7 @@
         "Camera AI"
       ],
       "status": "live",
-      "last_commit": "2026-11-12",
+      "last_commit": "2026-11-14",
       "links": {
         "repo": null,
         "live": "https://bora-party.web.app"
@@ -547,7 +547,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 88
+      "activity_30d": 115
     }
   ]
 }
