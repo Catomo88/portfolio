@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16",
+  "generated_at": "2026-11-17",
   "projects": [
     {
       "name": "AI_Movie",
@@ -306,7 +306,7 @@
         "Web"
       ],
       "status": "wip",
-      "last_commit": "2026-11-16",
+      "last_commit": "2026-11-17",
       "links": {
         "repo": "https://github.com/Catomo88/Vision_FB_SW",
         "live": null
@@ -315,7 +315,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 20
+      "activity_30d": 34
     },
     {
       "name": "결함진단피드백_SW",
