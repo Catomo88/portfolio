@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17",
+  "generated_at": "2026-11-18",
   "projects": [
     {
       "name": "AI_Movie",
@@ -399,7 +399,7 @@
         }
       ],
       "log_private": false,
-      "activity_30d": 186
+      "activity_30d": 183
     },
     {
       "name": "여행계획",
@@ -420,6 +420,27 @@
       "log": [],
       "log_private": true,
       "activity_30d": 10
+    },
+    {
+      "name": "인스타툰",
+      "display_name": "인스타툰",
+      "tool": "Claude Code",
+      "summary": "",
+      "tags": [
+        "Python",
+        "Web"
+      ],
+      "status": "wip",
+      "last_commit": null,
+      "links": {
+        "repo": null,
+        "live": null
+      },
+      "fingerprint": 0.0,
+      "summary_stale": true,
+      "log": [],
+      "log_private": false,
+      "activity_30d": 0
     },
     {
       "name": "AI English tutor",
@@ -547,7 +568,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 138
+      "activity_30d": 135
     }
   ]
 }
