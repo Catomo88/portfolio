@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18",
+  "generated_at": "2026-11-19",
   "projects": [
     {
       "name": "AI_Movie",
@@ -315,7 +315,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 34
+      "activity_30d": 31
     },
     {
       "name": "결함진단피드백_SW",
@@ -399,7 +399,7 @@
         }
       ],
       "log_private": false,
-      "activity_30d": 183
+      "activity_30d": 181
     },
     {
       "name": "여행계획",
@@ -568,7 +568,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 135
+      "activity_30d": 133
     }
   ]
 }
