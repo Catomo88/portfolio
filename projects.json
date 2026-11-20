@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19",
+  "generated_at": "2026-11-20",
   "projects": [
     {
       "name": "AI_Movie",
@@ -399,7 +399,7 @@
         }
       ],
       "log_private": false,
-      "activity_30d": 181
+      "activity_30d": 177
     },
     {
       "name": "여행계획",
@@ -568,7 +568,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 133
+      "activity_30d": 130
     }
   ]
 }
