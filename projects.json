@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20",
+  "generated_at": "2026-11-21",
   "projects": [
     {
       "name": "AI_Movie",
@@ -315,7 +315,7 @@
       "summary_stale": false,
       "log": [],
       "log_private": true,
-      "activity_30d": 31
+      "activity_30d": 24
     },
     {
       "name": "결함진단피드백_SW",
